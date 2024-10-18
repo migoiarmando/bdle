@@ -1,7 +1,7 @@
-import logo from "./images/Ateneo_de_Naga_University_logo.png";
+import logo from "../assets/images/Ateneo_de_Naga_University_logo.png";
 import { useNavigate } from "react-router-dom";
-import "./App.css";
-import "./SignupPage.css";
+import "./../styles/App.css";
+import "./../styles/SignupPage.css";
 
 function App() {
   const navigate = useNavigate(); //

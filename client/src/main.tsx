@@ -1,9 +1,9 @@
 import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
-import App from "./App.tsx";
-import "./index.css";
-import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
-import StudentForm from './StudentForm.tsx';
+import App from "./pages/App.tsx";
+import "./styles/index.css";
+import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+import StudentForm from "./pages/StudentForm.tsx";
 
 createRoot(document.getElementById("root")!).render(
   <StrictMode>

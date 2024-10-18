@@ -1,6 +1,6 @@
 import { useState } from "react";
-import "./StudentForm.css"; // Assuming you have a separate CSS file for styling
-import logo from "./images/Ateneo_de_Naga_University_logo.png";
+import "./../styles/StudentForm.css";
+import logo from "../assets/images/Ateneo_de_Naga_University_logo.png";
 
 const StudentForm = () => {
   const [activeStep, setActiveStep] = useState(1);
