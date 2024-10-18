@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import "./StudentForm.css"; // Assuming you have a separate CSS file for styling
 import logo from "./images/Ateneo_de_Naga_University_logo.png";
 
@@ -28,7 +28,7 @@ const StudentForm = () => {
             <h1>ADNU BDLE</h1>
           </div>
           <ul className="progress-steps">
-            {steps.map((step, index) => (
+            {steps.map((step) => (
               <li
                 key={step.id}
                 className={`step ${activeStep === step.id ? "active" : ""}`}
