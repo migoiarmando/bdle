@@ -1,0 +1,241 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+ * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Poppins", sans-serif;
+    }
+body{
+    background-color: #0F1845;
+}
+.Outer-container{
+    max-width: 1500px;
+    margin: 0 auto;
+    padding: 0 2em;
+    color: black;
+}
+.form-container{
+    display: flex;
+    flex-direction: row;
+    margin-top: 5em;
+    background-color: rgb(219, 219, 219);
+    border-radius: 1em;
+    color: black;
+}
+.form-container .progress{
+    position: relative;
+    padding: 1em;
+    color: black;
+}
+
+
+.progress ul.progress-steps{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    gap: 2em;
+    margin-left: 3rem;
+
+}
+.progress ul.progress-steps li {
+    position: relative;
+    display: flex;
+    align-items: flex-start;
+    color: black;
+}
+.progress ul.progress-steps li > span{
+    position: relative;
+    width: 40px;
+    height: 40px;
+    font-size: var(--font smaller);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-right: 1em;
+    border-radius: 50%;
+    background-color: rgb(189, 189, 189);
+    z-index: 1;
+}
+.progress ul.progress-steps li.active > span{
+    color: white;
+    background-color: #1d2d80;
+    border: 4px solid #e6e6e63a;
+    z-index: 1;
+}
+.progress ul.progress-steps li p span{
+    font-size: smaller;
+    color: rgb(28, 28, 28);
+}
+.form-container form{
+    width: 100%;
+    padding: 3em 1em;
+    background-color: white;
+    border-radius: 30px 30px 15px 15px;
+}
+form > div{
+    max-width: 400px;
+    margin: auto;  
+}
+form > div p {
+    color: black;
+    margin-bottom: 2em;
+}
+form > div > div:not(.checkbox){
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 2em;
+}
+form :where(input, select){
+    height: 40px;
+    padding: 1em;
+    border-radius: 7px;
+    outline-color: rgb(18, 5, 77);
+    border: 1px solid black;
+    background-color: transparent;
+}
+form label{
+    font-size: smaller;
+    margin-bottom: 0.5em;
+    font-weight: 600;
+    color: black;
+}
+form .grouping{
+    display: flex;
+}
+form .grouping input{
+    max-width: 70px;
+    text-align: center;
+    margin-right: 1em;
+}
+form .checkbox input{
+    height: auto;
+}
+
+form > div:not(.btn-group){
+    display: none;
+    -webkit-animation: fadeIn .6s cubic-bezier(0.39, 0.575, 0.565, 1) both;
+    animation: fadeIn .6s cubic-bezier(0.39, 0.575, 0.565, 1) both;
+}
+@keyframes fadeIn {
+    0% {
+        opacity: 0;
+        -webkit-transform: translateY(10%);
+        transform: translateY(10%);
+    }
+    100% {
+        opacity: 1;
+        -webkit-transform: translateY(10%);
+        transform: translateY(2%);
+    }
+}
+
+.btn-group {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1em;
+    margin-top: 2em;
+    color: black;
+}
+form > div.active {
+    display: block;
+}
+
+
+.btn-group {
+    display: flex;
+    flex: wrap;
+    gap: 1em;
+    margin-top: 2em;
+}
+.btn-group [class*="btn-"]{
+    background-color: gray;
+    color: white;
+    padding: 1em;
+    border: 3px solid rgb(230, 230, 230);
+    border-radius: 30px;
+    cursor: pointer;
+    -webkit-trasition: background-color .3s, border-color .3s ease-out;
+    transition: background-color .3s, border-color .3s ease-out;
+}
+.btn-group [class*="btn-"]:disabled {
+    background-color: #1d2d80;
+    border-color: #f3f3f33a;
+    cursor: text;
+}
+.btn-group [class*="btn-"]:hover:not(:disabled){
+    background-color: #1d2d80;
+    border-color: #1a85ff27;
+}
+.btn-group .btn-submit,
+.form-three.active ~ .btn-group .btn-next{
+    display: none;
+}
+.form-three.active ~ .btn-group .btn-submit {
+    display: block;
+}
+.form-three.active ~ .btn-group{
+    justify-content: space-between;
+}
+::placeholder {
+    color: gray;
+}
+.progress ul.progress.steps li p span{
+    font-size: smaller;
+    color: lightgray;
+    display: none;
+}
+@media screen and (min-width: 768px){
+    .form-container {
+        flex-direction: row;
+    }
+    .form-container .progress {
+        flex: 1 0 35%;
+        min-width: 300px;
+        padding: 3em;
+    }
+    .logo-image {
+        margin: 1rem 9rem 1px; 
+        height: 100px;
+        
+    }
+    .progress ul.progress-steps {
+        flex-direction: column;
+    }
+    .progress ul.progress-steps li:not(:last-child)::before {
+        content:'';
+        position: absolute;
+        left: 20px;
+        top: 30px;
+        width: 2px;
+        height: 79px;
+        background-color: lightgray;
+    }
+    .form-box form {
+        padding: 3em;
+        border-radius: 0 15px 15px 0;
+    }
+}
+
+h1{
+    margin: 1px 6.5rem 3.5rem;
+    font-weight: 900;
+    color: #1d2d80;
+}
+h2{
+    padding-bottom: 10px;
+}
+
+/* Add this to ensure all text is black */
+.Outer-container, .form-container, .progress, .form-step, .btn-group {
+    color: black;
+}
+
+/* If you have specific elements that need to be targeted, you can add more specific rules */
+.step.active span, .step.active p, .btn-prev, .btn-next, .btn-submit {
+    color: black;
+}
+
+/* Ensure any other text elements are also set to black */
+label, input, h1, h2, p {
+    color: black;
+}
