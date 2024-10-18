@@ -94,3 +94,8 @@ footer p {
 .outer-container {
   margin: auto 0;
 }
+
+.login-container h2,
+.login-container p {
+  color: white;
+}

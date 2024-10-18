@@ -239,3 +239,25 @@ h2{
 label, input, h1, h2, p {
     color: black;
 }
+
+/* Scope the color change to only the StudentForm component */
+.student-form .form-container, 
+.student-form .progress, 
+.student-form .form-step, 
+.student-form .btn-group {
+    color: black;
+}
+
+/* Ensure specific elements within StudentForm are also set to black */
+.student-form label, 
+.student-form input, 
+.student-form h1, 
+.student-form h2, 
+.student-form p, 
+.student-form .step.active span, 
+.student-form .step.active p, 
+.student-form .btn-prev, 
+.student-form .btn-next, 
+.student-form .btn-submit {
+    color: black;
+}

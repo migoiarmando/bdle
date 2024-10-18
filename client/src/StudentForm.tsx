@@ -6,9 +6,9 @@ const StudentForm = () => {
   const [activeStep, setActiveStep] = useState(1);
 
   const steps = [
-    { id: 1, label: "Terms", description: "Gay si mark" },
-    { id: 2, label: "Personal Information", description: "Gay si mark" },
-    { id: 3, label: "Student Information", description: "Gay si mark" },
+    { id: 1, label: "Terms" },
+    { id: 2, label: "Personal Information" },
+    { id: 3, label: "Student Information" },
   ];
 
   const handleNext = () => {
@@ -20,7 +20,7 @@ const StudentForm = () => {
   };
 
   return (
-    <div className="Outer-container">
+    <div className="student-form Outer-container">
       <div className="form-container">
         <div className="progress">
           <div>
@@ -107,7 +107,7 @@ const StudentForm = () => {
             <div className="bg-svg"></div>
             <h2>Student information</h2>
             <div>
-              <label>Ign</label>
+              <label>IGN</label>
               <input type="text" />
             </div>
             <div>
