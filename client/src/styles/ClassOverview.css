@@ -1,0 +1,178 @@
+
+.main-content {
+    margin-left: 380px; /* Ensures content is not overlapped by sidebar */
+    padding: 20px;
+    width: 100%;
+    height: 100vh;
+    background-color: #fff;
+}
+.top-container{
+    display: flex;
+    gap: 5rem;
+    margin: 1rem;
+
+
+
+}
+.left-container{
+    display: flex;
+    flex-direction: column;
+    
+}
+.attendance-record{
+    display: flex;
+}
+.left-container button{
+    padding:20px;
+    border-radius: 6px;
+    margin: 10px;
+    border-style: none;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+}
+.back {
+    background-color: #091241;
+    color: white;
+}
+.create-attendance{
+    background-color: #ffffff;
+    color: #091241;
+}
+.attendance-code{
+    background-color: #ffffff;
+    color: #091241;
+}
+    
+
+.status-label {
+    background-color: #091241;
+    color: white;
+    padding: 10px 8rem 10px 8rem;
+    font-size: 13px;
+    font-weight: 500;
+    display: block; 
+}
+.attendance-record {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 1rem;
+}
+.present{
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.late{
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+
+}
+.absent{
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+
+}
+.numbers{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 5rem;
+}
+.right-container{
+
+    width:100%;
+}
+.class-card{
+    background-color: #2e4c97; 
+    border-radius: 32px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+    color: white;
+    overflow: hidden;
+}
+.class-card-Subject{
+    display: flex;
+    justify-content: center;
+    font-size: 48px;
+    margin-top: 15px;
+    font-weight: light;
+}
+.class-card-Time{
+    display: flex;
+    justify-content: center;
+    font-weight: light;
+    font-size: 16px;
+    font-weight: 200;
+    padding: 10px 0;
+}
+.class-card-Teacher{
+    background-color: white;
+    color: #a8a8a8;
+    padding: 10px;
+    font-size: 13px;
+    font-weight: thin;
+    text-align: center;
+}
+
+table {
+    width: 99%;
+    border-collapse: collapse;
+    margin-top: 3rem;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+    table-layout: fixed; /* Ensures equal-width columns */
+}
+
+th, td {
+    padding: 12px 15px;
+    border: 1px solid #ddd;
+    white-space: normal; /* Allows text to wrap */
+    word-wrap: break-word; 
+}
+
+th {
+    background-color: #f5f5f5;
+    font-weight: 500;
+    color: #091241;
+    text-transform: uppercase;
+}
+
+td {
+    font-size: 13px;
+    color: #333;
+}
+
+tbody tr:nth-child(even) {
+    background-color: #f9f9f9;
+}
+
+tbody tr:hover {
+    background-color: #f1f1f1;
+}
+
+.circle {
+    margin-top: 3rem;
+    width: 280px;
+    height: 180px;
+    border: 10px solid green; /* Green border for the hollow circle */
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+    background-color: transparent; /* Make the inside vacant */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+#time {
+    font-size: 24px;
+    color: green;
+}
+#date {
+    font-size: 14ppx;
+    color: green;
+    margin-bottom: 8px;
+    font-family: Arial, sans-serif;
+}
+.user-profile{
+    display: flex;
+}
+.username{
+    display: flex;
+    align-items: center;
+    margin: 0 2rem;
+    color: gray;
+}

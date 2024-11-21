@@ -1,6 +1,7 @@
 import { useState } from "react";
 import "./../styles/StudentForm.css";
 import logo from "../assets/images/Ateneo_de_Naga_University_logo.png";
+import { Link } from "react-router-dom";
 
 const StudentForm = () => {
   const [activeStep, setActiveStep] = useState(1);
@@ -25,7 +26,7 @@ const StudentForm = () => {
         <div className="progress">
           <div>
             <img src={logo} alt="Logo" className="logo-image" />
-            <h1>ADNU BDLE</h1>
+            <h1 className="form-h1">ADNU BDLE</h1>
           </div>
           <ul className="progress-steps">
             {steps.map((step) => (
@@ -33,11 +34,11 @@ const StudentForm = () => {
                 key={step.id}
                 className={`step ${activeStep === step.id ? "active" : ""}`}
               >
-                <span>{step.id}</span>
-                <p>
+                <span >{step.id}</span>
+                <p className="progress-list-label">
                   {step.label}
                   <br />
-                  <span>{step.description}</span>
+                 
                 </p>
               </li>
             ))}
@@ -49,7 +50,7 @@ const StudentForm = () => {
           >
             <div className="bg-svg"></div>
             <h2>Personal Information</h2>
-            <p>
+            <p className="normal-font-size">
               This form is to consolidate information of students of Sir Kevin
               Vega. Please answer honestly. Feel free to answer N/A if not
               applicable. The collected data would be used solely for our class
@@ -57,8 +58,8 @@ const StudentForm = () => {
               will be handled with utmost confidentiality. Submitting the form
               means that you agree to share the data you will input here. Please
               keep in mind that all information shared in the class is also
-              confidential. This is in compliance with R.A. 10173 or the Data
-              Privacy Act of 2012.
+              confidential. <br /> <br /> <i>This is in compliance with R.A. 10173 or the Data
+              Privacy Act of 2012.</i> 
             </p>
           </div>
           <div
@@ -138,11 +139,12 @@ const StudentForm = () => {
               </button>
             )}
             {activeStep === steps.length && (
-              <a href="Signup.html">
+              // Add Success here then redirect sa login (auto redirect pa to ayusin na lang)
+              <Link to="/login">
                 <button type="button" className="btn-submit">
                   Submit
                 </button>
-              </a>
+              </Link>
             )}
           </div>
         </form>
