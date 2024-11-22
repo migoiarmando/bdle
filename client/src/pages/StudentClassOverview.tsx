@@ -1,17 +1,19 @@
 import React, { useEffect, useState } from "react";
-import "./../styles/ClassOverview.css";
+import "./../styles/StudentClassOverview.css";
 import back from "../assets/back.svg";
 import presentStudentsIcon from "../assets/present-students-icon.svg";
 import lateStudentsIcon from "../assets/late-students-icon.svg";
 import absentStudentsIcon from "../assets/absent-students-icon.svg";
 
-import ProfessorNavbar from "../components/ProfessorNavbar";
+import StudentNavbar from "../components/StudentNavbar";
 import Sidebar from "../components/Sidebar";
+// import axios from "axios"; // Import axios for backend requests
 
-const AttendanceSubject: React.FC = () => {
+const StudentClassOverview: React.FC = () => {
   const [isAddingAttendance, setIsAddingAttendance] = useState(false);
   const [attendanceCode, setAttendanceCode] = useState("");
   const [questionOfTheDay, setQuestionOfTheDay] = useState("");
+  const [isSubmitting, setIsSubmitting] = useState(false); // To handle submission state
 
   useEffect(() => {
     function updateTime() {
@@ -38,12 +40,31 @@ const AttendanceSubject: React.FC = () => {
     resetFields();
   };
 
-  const handleSubmit = () => {
+  const handleSubmit = async () => {
     if (attendanceCode.trim() && questionOfTheDay.trim()) {
-      console.log("Attendance Created:", { attendanceCode, questionOfTheDay });
-      alert("Attendance created successfully!");
-      setIsAddingAttendance(false);
-      resetFields();
+      try {
+        setIsSubmitting(true); // Set submitting state to true while the request is in progress
+
+        const studentId = "student-id-here"; // Replace with actual student ID (e.g., from auth)
+
+        // Send data to the backend
+        // const response = await axios.post("/api/join-attendance", {
+        //   attendanceCode,
+        //   questionOfTheDay,
+        //   studentId,
+        // });
+
+        // Handle success response
+        console.log(response.data);
+        alert("Attendance created successfully!");
+        setIsAddingAttendance(false);
+        resetFields();
+      } catch (error) {
+        console.error("Error joining attendance:", error);
+        alert("There was an error joining attendance. Please try again.");
+      } finally {
+        setIsSubmitting(false); // Reset submitting state
+      }
     } else {
       alert("Please fill in all fields.");
     }
@@ -59,7 +80,7 @@ const AttendanceSubject: React.FC = () => {
       <Sidebar />
 
       <div className="main-content">
-        <ProfessorNavbar />
+        <StudentNavbar />
         <div className="top-container">
           <div className="left-container">
             <button className="back">
@@ -70,7 +91,7 @@ const AttendanceSubject: React.FC = () => {
               className="create-attendance"
               onClick={handleCreateAttendanceClick}
             >
-             Create Attendance 
+              Join Attendance
             </button>
             {/* Add attendance code here */}
             <div className="attendance-code">#attendance-Code</div>
@@ -117,8 +138,7 @@ const AttendanceSubject: React.FC = () => {
         {isAddingAttendance && (
           <div className="overlay">
             <div className="attendance-form">
-              <h2>Create Attendance</h2>
-              <span className="attendance-form-span">create a code for student to access attendance</span>
+              <h2>Join Attendance</h2>
               <div className="form-group">
                 <label>Attendance Code:</label>
                 <input
@@ -130,6 +150,8 @@ const AttendanceSubject: React.FC = () => {
               </div>
               <div className="form-group">
                 <label>Question of the Day:</label>
+                {/* Add dynamic question here */}
+                <span>How are you?</span>
                 <textarea
                   value={questionOfTheDay}
                   onChange={(e) => setQuestionOfTheDay(e.target.value)}
@@ -137,8 +159,12 @@ const AttendanceSubject: React.FC = () => {
                 />
               </div>
               <div className="form-buttons">
-                <button className="submit-button" onClick={handleSubmit}>
-                  Create Attendance
+                <button
+                  className="submit-button"
+                  onClick={handleSubmit}
+                  disabled={isSubmitting} // Disable button while submitting
+                >
+                  {isSubmitting ? "Submitting..." : "Join Attendance"}
                 </button>
                 <button className="cancel-button" onClick={handleCancelClick}>
                   Cancel
@@ -179,4 +205,4 @@ const AttendanceSubject: React.FC = () => {
   );
 };
 
-export default AttendanceSubject;
+export default StudentClassOverview;

@@ -7,6 +7,7 @@ import logo from "../assets/adnu.svg";
 import SubjectComponent from "../components/SubjectComponent";
 import { useNavigate } from "react-router-dom";
 import StudentNavbar from "../components/StudentNavbar";
+import Sidebar from "../components/Sidebar";
 
 const HomeManager: React.FC = () => {
   const navigate = useNavigate();
@@ -72,21 +73,8 @@ const HomeManager: React.FC = () => {
 
   return (
     <div className="nav-container">
-      <div className="sidebar">
-        <div className="sidebar-content">
-          <div className="nav-logo-wrapper">
-            <img className="nav-logo" src={logo} alt="Logo" />
-          </div>
-          <ul className="nav-items">
-            <a href="#home">Home</a>
-            <a href="#calendar">Calendar</a>
-            <a href="#settings">Settings</a>
-            <a onClick={() => navigate("/")}>Log out</a>
-            
-          </ul>
-        </div>
-      </div>
-
+      <Sidebar />
+      
       <div className="main-container">
         {/* Nav */}
         <StudentNavbar />

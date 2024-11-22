@@ -11,7 +11,9 @@ import LoginPage from "./pages/login.tsx"
 import ManagerHomepage from "./pages/HomeManager.tsx";
 import StudentHomepage from "./pages/HomeStudent.tsx";
 import ClassOverview from "./pages/ClassOverview.tsx";
+
 import Continue from "./pages/Continue.tsx";
+import StudentClassOverview from "./pages/StudentClassOverview.tsx";
 
 createRoot(document.getElementById("root")!).render(
   <StrictMode>
@@ -28,17 +30,10 @@ createRoot(document.getElementById("root")!).render(
         {/* Student Routes */}
           {/* Home */}
           <Route  path="/student-home" element={<StudentHomepage />} />
+          <Route  path="/class-overview-student" element={<StudentClassOverview />} />
 
           {/* <Route  path="/class/:id" element={<Class />} /> */}
           
-          {/* Calendar */}
-          {/* <Route  path="/calendar" element={<Calendar />} />
-          <Route  path="calendar-class/:id" element={<Class />} />
-
-          {/* Settings */}
-          {/* <Route path="settings" element={<Settings />} /> */}
-
-
         {/* Teacher's Routes */}
           {/* Home */}
           <Route  path="/manager-home" element={<ManagerHomepage />} />
