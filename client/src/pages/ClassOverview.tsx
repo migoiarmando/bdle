@@ -10,7 +10,7 @@ const AttendanceSubject: React.FC = () => {
   useEffect(() => {
     function updateTime() {
       const timeElement = document.getElementById('time') as HTMLElement;
-      const dateElement = document.getElementById('date') as HTMLElement;
+      //const dateElement = document.getElementById('date') as HTMLElement;
       const now = new Date();
       let hours = now.getHours();
       const minutes = String(now.getMinutes()).padStart(2, '0');
