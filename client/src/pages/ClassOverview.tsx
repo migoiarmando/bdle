@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import './../styles/ClassOverview.css';
 import "./../styles/HomeManager.css";
-import logo from "../assets/adnu.svg";
+//import logo from "../assets/adnu.svg";
 
 import ProfessorNavbar from "../components/ProfessorNavbar";
 
@@ -19,9 +19,9 @@ const AttendanceSubject: React.FC = () => {
       hours = hours % 12 || 12;  // Convert to 12-hour format
       timeElement.textContent = `${hours}:${minutes} ${ampm}`;
 
-      const options = { month: 'long', day: 'numeric', year: 'numeric' };
+     // const options = { month: 'long', day: 'numeric', year: 'numeric' };
     //   dateElement.textContent = now.toLocaleDateString('en-US', options);
-    }
+    } 
 
     setInterval(updateTime, 1000);
     updateTime();  // Initial call to display the time immediately

@@ -3,7 +3,7 @@ import "./../styles/HomeManager.css";
 import logo from "../assets/adnu.svg";
 
 // components
-import ProfessorNavbar from "../components/ProfessorNavbar";
+//import ProfessorNavbar from "../components/ProfessorNavbar";
 import SubjectComponent from "../components/SubjectComponent";
 import { useNavigate } from "react-router-dom";
 import StudentNavbar from "../components/StudentNavbar";
@@ -27,9 +27,9 @@ const HomeManager: React.FC = () => {
     setIsOverlayActive(true);
   };
 
-  const handleCancelClick = () => {
-    setIsOverlayActive(false);
-  };
+ // const handleCancelClick = () => {
+  //  setIsOverlayActive(false);
+ // };
 
   const handleFormSubmit = (e: React.FormEvent) => {
     e.preventDefault();
