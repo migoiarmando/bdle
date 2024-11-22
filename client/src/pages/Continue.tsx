@@ -14,14 +14,17 @@ function App() {
         <h2 className="lg-header-2">Welcome to BDLE</h2>
 
         <div className="buttons">
-          <button onClick={() => navigate("/login")} className="btn teacher">
-            Sign In as Teacher
+          <button
+            onClick={() => navigate("/manager-home")}
+            className="btn teacher"
+          >
+            Continue as Teacher
           </button>
           <button
             className="btn student"
-            onClick={() => navigate("/student-form")}
+            onClick={() => navigate("/student-home")}
           >
-            Sign Up as Student
+            Continue as Student
           </button>
         </div>
         <p className="lg-p" onClick={() => navigate("/login")}>

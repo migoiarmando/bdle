@@ -11,6 +11,7 @@ import LoginPage from "./pages/login.tsx"
 import ManagerHomepage from "./pages/HomeManager.tsx";
 import StudentHomepage from "./pages/HomeStudent.tsx";
 import ClassOverview from "./pages/ClassOverview.tsx";
+import Continue from "./pages/Continue.tsx";
 
 createRoot(document.getElementById("root")!).render(
   <StrictMode>
@@ -20,6 +21,7 @@ createRoot(document.getElementById("root")!).render(
         <Route path="/" element={<App />} />
         <Route path="/student-form" element={<StudentForm />} />
         <Route path="/login" element={<LoginPage />} />
+        <Route path="/continue" element={<Continue />} />
         
         <Route  path="/class-overview" element={<ClassOverview />} />
 
