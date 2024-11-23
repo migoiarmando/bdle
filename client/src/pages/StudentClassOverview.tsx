@@ -7,7 +7,7 @@ import absentStudentsIcon from "../assets/absent-students-icon.svg";
 
 import StudentNavbar from "../components/StudentNavbar";
 import Sidebar from "../components/Sidebar";
-// import axios from "axios"; // Import axios for backend requests
+import axios from "axios"; // Import axios for backend requests
 
 const StudentClassOverview: React.FC = () => {
   const [isAddingAttendance, setIsAddingAttendance] = useState(false);
@@ -43,19 +43,20 @@ const StudentClassOverview: React.FC = () => {
   const handleSubmit = async () => {
     if (attendanceCode.trim() && questionOfTheDay.trim()) {
       try {
-        setIsSubmitting(true); // Set submitting state to true while the request is in progress
+        setIsSubmitting(true);
 
-        //const studentId = "student-id-here"; // Replace with actual student ID (e.g., from auth)
+        // Replace with actual student ID (e.g., from auth)
+        const studentId = "student-id-here";
 
         // Send data to the backend
-        // const response = await axios.post("/api/join-attendance", {
-        //   attendanceCode,
-        //   questionOfTheDay,
-        //   studentId,
-        // });
+        const response = await axios.post("/api/join-attendance", {
+          attendanceCode,
+          questionOfTheDay,
+          studentId,
+        });
 
         // Handle success response
-        console.log(Response.data);
+        console.log(response.data);
         alert("Attendance created successfully!");
         setIsAddingAttendance(false);
         resetFields();
@@ -63,7 +64,7 @@ const StudentClassOverview: React.FC = () => {
         console.error("Error joining attendance:", error);
         alert("There was an error joining attendance. Please try again.");
       } finally {
-        setIsSubmitting(false); // Reset submitting state
+        setIsSubmitting(false);
       }
     } else {
       alert("Please fill in all fields.");
