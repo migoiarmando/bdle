@@ -45,7 +45,7 @@ const StudentClassOverview: React.FC = () => {
       try {
         setIsSubmitting(true); // Set submitting state to true while the request is in progress
 
-        const studentId = "student-id-here"; // Replace with actual student ID (e.g., from auth)
+        //const studentId = "student-id-here"; // Replace with actual student ID (e.g., from auth)
 
         // Send data to the backend
         // const response = await axios.post("/api/join-attendance", {
@@ -55,7 +55,7 @@ const StudentClassOverview: React.FC = () => {
         // });
 
         // Handle success response
-        console.log(response.data);
+        console.log(Response.data);
         alert("Attendance created successfully!");
         setIsAddingAttendance(false);
         resetFields();

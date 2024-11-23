@@ -1,11 +1,11 @@
 import React, { useState } from "react";
 import "./../styles/HomeManager.css";
-import logo from "../assets/adnu.svg";
+//import logo from "../assets/adnu.svg";
 
 // components
 //import ProfessorNavbar from "../components/ProfessorNavbar";
 import SubjectComponent from "../components/SubjectComponent";
-import { useNavigate } from "react-router-dom";
+//import { useNavigate } from "react-router-dom";
 import StudentNavbar from "../components/StudentNavbar";
 import Sidebar from "../components/Sidebar";
 

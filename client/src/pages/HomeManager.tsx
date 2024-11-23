@@ -5,7 +5,7 @@ import "./../styles/HomeManager.css";
 // components
 import ProfessorNavbar from "../components/ProfessorNavbar";
 import SubjectComponent from "../components/SubjectComponent";
-import { useNavigate } from "react-router-dom";
+//import { useNavigate } from "react-router-dom";
 import Sidebar from "../components/Sidebar";
 
 const HomeManager: React.FC = () => {
