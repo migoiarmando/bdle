@@ -71,18 +71,18 @@
     margin-top: 1rem;
     
 }
-.present{
+.present-wrapper{
     box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
     border-radius: 10px;
 
 }
 
-.late{
+.late-wrapper{
     box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
     border-radius: 10px;
 
 }
-.absent{
+.absent-wrapper{
     box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
     border-radius: 10px;
 
@@ -133,13 +133,12 @@ table {
     width: 99%;
     border-collapse: collapse;
     margin-top: 3rem;
-    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
     table-layout: fixed; /* Ensures equal-width columns */
 }
 
 th, td {
     padding: 12px 15px;
-    border: 1px solid #ddd;
+    border: 1px transparent #ddd;
     white-space: normal; /* Allows text to wrap */
     word-wrap: break-word; 
 }
@@ -155,7 +154,10 @@ td {
     font-size: 13px;
     color: #333;
 }
-
+.student-name-wrapper{
+    display: flex;
+    gap: 1rem;
+}
 tbody tr:nth-child(even) {
     background-color: #f9f9f9;
 }

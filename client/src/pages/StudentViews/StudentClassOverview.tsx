@@ -1,19 +1,27 @@
 import React, { useEffect, useState } from "react";
-import "./../styles/StudentClassOverview.css";
-import back from "../assets/back.svg";
-import presentStudentsIcon from "../assets/present-students-icon.svg";
-import lateStudentsIcon from "../assets/late-students-icon.svg";
-import absentStudentsIcon from "../assets/absent-students-icon.svg";
+import "../../styles/StudentClassOverview.css";
+import back from "../../assets/back.svg";
+import presentStudentsIcon from "../../assets/present-students-icon.svg";
+import lateStudentsIcon from "../../assets/late-students-icon.svg";
+import absentStudentsIcon from "../../assets/absent-students-icon.svg";
 
-import StudentNavbar from "../components/StudentNavbar";
-import Sidebar from "../components/Sidebar";
-import axios from "axios"; // Import axios for backend requests
+import presentCircle from "../../assets/student-status/present-circle-icon.svg";
+// import lateCircle from "../../assets/student-status/late-circle-icon.svg";
+// import absentCircle from "../../assets/student-status/absent-circle-icon.svg";
+
+
+import StudentNavbar from "../../components/StudentNavbar";
+import StudentSidebar from "../../components/StudentSidebar";
+
+//import axios from "axios"; // Import axios for backend requests
+import { useNavigate } from "react-router-dom";
 
 const StudentClassOverview: React.FC = () => {
   const [isAddingAttendance, setIsAddingAttendance] = useState(false);
   const [attendanceCode, setAttendanceCode] = useState("");
   const [questionOfTheDay, setQuestionOfTheDay] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false); // To handle submission state
+  const navigate = useNavigate();
 
   useEffect(() => {
     function updateTime() {
@@ -46,17 +54,16 @@ const StudentClassOverview: React.FC = () => {
         setIsSubmitting(true);
 
         // Replace with actual student ID (e.g., from auth)
-        const studentId = "student-id-here";
+        //const studentId = "student-id-here";
 
         // Send data to the backend
-        const response = await axios.post("/api/join-attendance", {
-          attendanceCode,
-          questionOfTheDay,
-          studentId,
-        });
+        // const response = await axios.post("/api/join-attendance", {
+        //   attendanceCode,
+        //   questionOfTheDay,
+        //   studentId,
+        // });
 
         // Handle success response
-        console.log(response.data);
         alert("Attendance created successfully!");
         setIsAddingAttendance(false);
         resetFields();
@@ -78,13 +85,14 @@ const StudentClassOverview: React.FC = () => {
 
   return (
     <div className="nav-container">
-      <Sidebar />
+      <StudentSidebar />
 
       <div className="main-content">
         <StudentNavbar />
         <div className="top-container">
           <div className="left-container">
-            <button className="back">
+            <button className="back"
+              onClick={() => navigate("/student-home")}>
               <img className="back-logo" src={back} alt="Back" />
               Back
             </button>
@@ -94,7 +102,7 @@ const StudentClassOverview: React.FC = () => {
             >
               Join Attendance
             </button>
-            {/* Add attendance code here */}
+            {/* BACKEND Add dynamic attendance code here */}
             <div className="attendance-code">#attendance-Code</div>
           </div>
           <div className="circle">
@@ -110,21 +118,21 @@ const StudentClassOverview: React.FC = () => {
             </div>
 
             <div className="attendance-record">
-              <div className="present">
+              <div className="present-wrapper">
                 <span className="status-label">Present</span>
                 <div className="numbers">
                   <img src={presentStudentsIcon} alt="" />
                   <span>0</span>
                 </div>
               </div>
-              <div className="late">
+              <div className="late-wrapper">
                 <span className="status-label">Absent</span>
                 <div className="numbers">
                   <img src={absentStudentsIcon} alt="" />
                   <span>0</span>
                 </div>
               </div>
-              <div className="absent">
+              <div className="absent-wrapper">
                 <span className="status-label">Late</span>
                 <div className="numbers">
                   <img src={lateStudentsIcon} alt="" />
@@ -151,7 +159,7 @@ const StudentClassOverview: React.FC = () => {
               </div>
               <div className="form-group">
                 <label>Question of the Day:</label>
-                {/* Add dynamic question here */}
+                {/* BACKEND Add dynamic question here */}
                 <span>How are you?</span>
                 <textarea
                   value={questionOfTheDay}
@@ -180,25 +188,21 @@ const StudentClassOverview: React.FC = () => {
             <tr>
               <th>Names</th>
               <th>IGN</th>
+              {/* BACKEND Add dynamic question of the day here */}
               <th>How are you?</th>
             </tr>
           </thead>
           <tbody>
+            {/* BACKEND Add dynamic content here - studentsd */}
             <tr>
-              <td>Karl Axcel E. Lumabi</td>
+              <td className="student-name-wrapper">
+                <img src={presentCircle} alt="" />
+                Karl Axcel E. Lumabi
+              </td>
               <td>Kaash</td>
               <td>Goods</td>
             </tr>
-            <tr>
-              <td>Karl Axcel E. Lumabi</td>
-              <td>Kaash</td>
-              <td>Goods</td>
-            </tr>
-            <tr>
-              <td>Karl Axcel E. Lumabi</td>
-              <td>Kaash</td>
-              <td>Goods</td>
-            </tr>
+            
           </tbody>
         </table>
       </div>

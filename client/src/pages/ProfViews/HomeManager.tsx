@@ -1,18 +1,17 @@
 import React, { useState } from "react";
-import "./../styles/HomeManager.css";
-//import logo from "../assets/adnu.svg";
+import "../../styles/HomeManager.css";
 
 // components
-//import ProfessorNavbar from "../components/ProfessorNavbar";
-import SubjectComponent from "../components/SubjectComponent";
+import ProfessorNavbar from "../../components/ProfessorNavbar";
+import SubjectComponent from "../../components/SubjectComponent";
 //import { useNavigate } from "react-router-dom";
-import StudentNavbar from "../components/StudentNavbar";
-import Sidebar from "../components/Sidebar";
+import Sidebar from "../../components/Sidebar";
 
 const HomeManager: React.FC = () => {
   //const navigate = useNavigate();
 
   const [isOverlayActive, setIsOverlayActive] = useState(false);
+  const [generatedCode, setGeneratedCode] = useState("");
   const [classCards, setClassCards] = useState<
     {
       className: string;
@@ -21,16 +20,18 @@ const HomeManager: React.FC = () => {
       scheduleStart: string;
       scheduleEnd: string;
       theme: string;
+      classCode: string;
     }[]
   >([]);
 
   const handleAddClassClick = () => {
     setIsOverlayActive(true);
+    setGeneratedCode(generateUniqueClassCode()); // Generate code when overlay is activated
   };
 
- // const handleCancelClick = () => {
-  //  setIsOverlayActive(false);
- // };
+  const handleCancelClick = () => {
+    setIsOverlayActive(false);
+  };
 
   const handleFormSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -49,6 +50,7 @@ const HomeManager: React.FC = () => {
       scheduleStart,
       scheduleEnd,
       theme: getThemeColor(selectedTheme),
+      classCode: generatedCode,
     };
 
     setClassCards((prev) => [...prev, newClassCard]);
@@ -71,17 +73,27 @@ const HomeManager: React.FC = () => {
     }
   };
 
+  const generateUniqueClassCode = (): string => {
+    // Generate a random alphanumeric string (6 characters long)
+    const characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+    let code = "";
+    for (let i = 0; i < 6; i++) {
+      code += characters.charAt(Math.floor(Math.random() * characters.length));
+    }
+    return code;
+  };
+
   return (
     <div className="nav-container">
       <Sidebar />
-      
+
       <div className="main-container">
         {/* Nav */}
-        <StudentNavbar />
+        <ProfessorNavbar />
 
         <div className="buttons">
           <button id="addClassBtn" onClick={handleAddClassClick}>
-            Join Class +
+            Add Class +
           </button>
         </div>
         <div className="subject-cards-wrapper">
@@ -89,21 +101,48 @@ const HomeManager: React.FC = () => {
         </div>
       </div>
 
-
       {/* Overlay */}
       {isOverlayActive && (
         <div id="overlay" className="overlay active">
           <div className="add-class-form-container">
             <div className="add-class-header">
-              <h2>Join Class</h2>
+              <h2>Add Class</h2>
             </div>
-            
-            <form id="createClassForm" onSubmit={handleFormSubmit}>
-              <label htmlFor="className">Class code</label> <br />
-              <span style={{fontSize: '0.80rem'}}>You need to ask for your teacher the code to join the class</span>
-              <input type="text" name="className" id="className" required placeholder="Code"/>
 
-              {/* <label>Theme</label> */}
+            <form id="createClassForm" onSubmit={handleFormSubmit}>
+              <label htmlFor="className">Class name</label>
+              <input type="text" name="className" id="className" required />
+
+              <label htmlFor="professor">Professor</label>
+              <input type="text" name="professor" id="professor" required />
+
+              <label htmlFor="scheduleDay">Class Sched (Day)</label>
+              <input type="text" name="scheduleDay" id="scheduleDay" required />
+
+              <label htmlFor="scheduleStart">Start Time</label>
+              <input type="time" name="scheduleStart" id="scheduleStart" required />
+
+              <label htmlFor="scheduleEnd">End Time</label>
+              <input type="time" name="scheduleEnd" id="scheduleEnd" required />
+
+              <label htmlFor="classCode">Class Code</label>
+              
+              <input
+                type="text"
+                name="classCode"
+                id="classCode"
+                value={generatedCode}
+                readOnly
+                required
+              />
+              <button
+                type="button"
+                onClick={() => navigator.clipboard.writeText(generatedCode)}
+                className="copy-btn"
+              >
+                Copy Code
+              </button>
+
               <div className="theme-picker">
                 <input
                   type="radio"
@@ -124,9 +163,15 @@ const HomeManager: React.FC = () => {
                 <label htmlFor="purpleTheme" className="purple"></label>
               </div>
 
-     
+              <button
+                type="button"
+                className="cancel-btn"
+                onClick={handleCancelClick}
+              >
+                Cancel
+              </button>
               <button type="submit" className="create-btn">
-                Join
+                Create
               </button>
             </form>
           </div>

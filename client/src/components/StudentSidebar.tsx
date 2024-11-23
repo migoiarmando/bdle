@@ -3,7 +3,7 @@ import logo from "../assets/adnu.svg";
 import "./styles/sidebar.css";
 import { useNavigate } from 'react-router-dom';
 
-const Sidebar: React.FC = () => {
+const StudentSidebar: React.FC = () => {
   const navigate = useNavigate();
 
   return (
@@ -13,8 +13,8 @@ const Sidebar: React.FC = () => {
             <img className="nav-logo" src={logo} alt="Logo" />
           </div>
           <ul className="nav-items">
-            <a onClick={() => navigate("/manager-home")}>Home</a>
-            <a onClick={() => navigate("/calendar-manager")}>Calendar</a>
+            <a onClick={() => navigate("/student-home")}>Home</a>
+            <a onClick={() => navigate("/calendar-student")}>Calendar</a>
             <a onClick={() => navigate("/404")}>Settings</a>
             <a onClick={() => navigate("/login")}>Log out</a>
             
@@ -24,4 +24,4 @@ const Sidebar: React.FC = () => {
   )
 }
 
-export default Sidebar
+export default StudentSidebar

@@ -43,20 +43,39 @@
     align-items: center;
     gap: 0.25rem;
     cursor: pointer;
+    transition: all 0.3s;
+
+}
+
+.back:hover{
+    background-color: #0d1b60;
+    transition: all 0.3s;
+
+}
+.create-attendance:hover{
+    background-color: #0d1b60;
+    transition: all 0.3s;
+
 }
 .create-attendance{
     background-color: #091241;
     color: white;
     cursor: pointer;
+    transition: all 0.3s;
 
 }
 .attendance-code{
     background-color: #ffffff;
     color: #091241;
+    transition: all 0.3s;
 
 }
     
-
+.attendance-code:hover{
+    background-color: #efefef;
+    transition: all 0.3s;
+    
+}
 .status-label {
     background-color: #091241;
     color: white;
@@ -71,18 +90,18 @@
     margin-top: 1rem;
     
 }
-.present{
+.present-wrapper{
     box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
     border-radius: 10px;
 
 }
 
-.late{
+.late-wrapper{
     box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
     border-radius: 10px;
 
 }
-.absent{
+.absent-wrapper{
     box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
     border-radius: 10px;
 
@@ -133,13 +152,13 @@ table {
     width: 99%;
     border-collapse: collapse;
     margin-top: 3rem;
-    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
     table-layout: fixed; /* Ensures equal-width columns */
 }
 
 th, td {
     padding: 12px 15px;
-    border: 1px solid #ddd;
+    border: 1px transparent #ddd;
+    border-bottom: 1px solid #ddd;
     white-space: normal; /* Allows text to wrap */
     word-wrap: break-word; 
 }

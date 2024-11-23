@@ -1,12 +1,13 @@
 import React, { useState } from "react";
-import "./../styles/HomeManager.css";
+import "../../styles/HomeManager.css";
 //import logo from "../assets/adnu.svg";
 
 // components
-import ProfessorNavbar from "../components/ProfessorNavbar";
-import SubjectComponent from "../components/SubjectComponent";
+//import ProfessorNavbar from "../components/ProfessorNavbar";
+import SubjectComponent from "../../components/SubjectComponent";
 //import { useNavigate } from "react-router-dom";
-import Sidebar from "../components/Sidebar";
+import StudentNavbar from "../../components/StudentNavbar";
+import StudentSidebar from "../../components/StudentSidebar";
 
 const HomeManager: React.FC = () => {
   //const navigate = useNavigate();
@@ -27,9 +28,9 @@ const HomeManager: React.FC = () => {
     setIsOverlayActive(true);
   };
 
-  const handleCancelClick = () => {
-    setIsOverlayActive(false);
-  };
+ // const handleCancelClick = () => {
+  //  setIsOverlayActive(false);
+ // };
 
   const handleFormSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -72,15 +73,15 @@ const HomeManager: React.FC = () => {
 
   return (
     <div className="nav-container">
-      <Sidebar />
-
+      <StudentSidebar />
+      
       <div className="main-container">
         {/* Nav */}
-        <ProfessorNavbar />
+        <StudentNavbar />
 
         <div className="buttons">
           <button id="addClassBtn" onClick={handleAddClassClick}>
-            Add Class +
+            Join Class +
           </button>
         </div>
         <div className="subject-cards-wrapper">
@@ -94,24 +95,13 @@ const HomeManager: React.FC = () => {
         <div id="overlay" className="overlay active">
           <div className="add-class-form-container">
             <div className="add-class-header">
-              <h2>Add Class</h2>
+              <h2>Join Class</h2>
             </div>
             
             <form id="createClassForm" onSubmit={handleFormSubmit}>
-              <label htmlFor="className">Class name</label>
-              <input type="text" name="className" id="className" required />
-
-              <label htmlFor="professor">Professor</label>
-              <input type="text" name="professor" id="professor" required />
-
-              <label htmlFor="scheduleDay">Class Sched (Day)</label>
-              <input type="text" name="scheduleDay" id="scheduleDay" required />
-
-              <label htmlFor="scheduleStart">Start Time</label>
-              <input type="time" name="scheduleStart" id="scheduleStart" required />
-
-              <label htmlFor="scheduleEnd">End Time</label>
-              <input type="time" name="scheduleEnd" id="scheduleEnd" required />
+              <label htmlFor="className">Class code</label> <br />
+              <span style={{fontSize: '0.80rem'}}>You need to ask for your teacher the code to join the class</span>
+              <input type="text" name="className" id="className" required placeholder="Code"/>
 
               {/* <label>Theme</label> */}
               <div className="theme-picker">
@@ -134,15 +124,9 @@ const HomeManager: React.FC = () => {
                 <label htmlFor="purpleTheme" className="purple"></label>
               </div>
 
-              <button
-                type="button"
-                className="cancel-btn"
-                onClick={handleCancelClick}
-              >
-                Cancel
-              </button>
+     
               <button type="submit" className="create-btn">
-                Create
+                Join
               </button>
             </form>
           </div>

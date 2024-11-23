@@ -1,17 +1,26 @@
 import React, { useEffect, useState } from "react";
-import "./../styles/ClassOverview.css";
-import back from "../assets/back.svg";
-import presentStudentsIcon from "../assets/present-students-icon.svg";
-import lateStudentsIcon from "../assets/late-students-icon.svg";
-import absentStudentsIcon from "../assets/absent-students-icon.svg";
+import "../../styles/ClassOverview.css";
+import back from "../../assets/back.svg";
+import presentStudentsIcon from "../../assets/present-students-icon.svg";
+import lateStudentsIcon from "../../assets/late-students-icon.svg";
+import absentStudentsIcon from "../../assets/absent-students-icon.svg";
 
-import ProfessorNavbar from "../components/ProfessorNavbar";
-import Sidebar from "../components/Sidebar";
+import ProfessorNavbar from "../../components/ProfessorNavbar";
+import Sidebar from "../../components/Sidebar";
+import { useNavigate } from "react-router-dom";
+
+
+import presentCircle from "../../assets/student-status/present-circle-icon.svg";
+// import lateCircle from "../../assets/student-status/late-circle-icon.svg";
+// import absentCircle from "../../assets/student-status/absent-circle-icon.svg";
+
+
 
 const AttendanceSubject: React.FC = () => {
   const [isAddingAttendance, setIsAddingAttendance] = useState(false);
   const [attendanceCode, setAttendanceCode] = useState("");
   const [questionOfTheDay, setQuestionOfTheDay] = useState("");
+  const navigate = useNavigate();
 
   useEffect(() => {
     function updateTime() {
@@ -62,7 +71,9 @@ const AttendanceSubject: React.FC = () => {
         <ProfessorNavbar />
         <div className="top-container">
           <div className="left-container">
-            <button className="back">
+            <button className="back"
+            onClick={() => navigate("/manager-home")}
+>
               <img className="back-logo" src={back} alt="Back" />
               Back
             </button>
@@ -74,6 +85,7 @@ const AttendanceSubject: React.FC = () => {
             </button>
             {/* Add attendance code here */}
             <div className="attendance-code">#attendance-Code</div>
+            <div className="attendance-code">#class-Code</div>
           </div>
           <div className="circle">
             <div id="date">January 1, 2024</div>
@@ -88,21 +100,21 @@ const AttendanceSubject: React.FC = () => {
             </div>
 
             <div className="attendance-record">
-              <div className="present">
+              <div className="present-wrapper">
                 <span className="status-label">Present</span>
                 <div className="numbers">
                   <img src={presentStudentsIcon} alt="" />
                   <span>0</span>
                 </div>
               </div>
-              <div className="late">
+              <div className="late-wrapper">
                 <span className="status-label">Absent</span>
                 <div className="numbers">
                   <img src={absentStudentsIcon} alt="" />
                   <span>0</span>
                 </div>
               </div>
-              <div className="absent">
+              <div className="absent-wrapper">
                 <span className="status-label">Late</span>
                 <div className="numbers">
                   <img src={lateStudentsIcon} alt="" />
@@ -153,25 +165,21 @@ const AttendanceSubject: React.FC = () => {
             <tr>
               <th>Names</th>
               <th>IGN</th>
+              {/* BACKEND Add dynamic question of the day here */}
               <th>How are you?</th>
             </tr>
           </thead>
           <tbody>
+            {/* BACKEND Add dynamic content here - studentsd */}
             <tr>
-              <td>Karl Axcel E. Lumabi</td>
+              <td className="student-name-wrapper">
+                <img src={presentCircle} alt="" />
+                Karl Axcel E. Lumabi
+              </td>
               <td>Kaash</td>
               <td>Goods</td>
             </tr>
-            <tr>
-              <td>Karl Axcel E. Lumabi</td>
-              <td>Kaash</td>
-              <td>Goods</td>
-            </tr>
-            <tr>
-              <td>Karl Axcel E. Lumabi</td>
-              <td>Kaash</td>
-              <td>Goods</td>
-            </tr>
+            
           </tbody>
         </table>
       </div>

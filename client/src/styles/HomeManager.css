@@ -144,14 +144,38 @@ hr{
     
 }
 
+.copy-btn{
+    margin-right: 12.55rem;
+    transition: all 0.3s;
+
+}
+.copy-btn:hover{
+    background-color: #ccc;
+    transition: all 0.3s;
+
+}
+
 .cancel-btn {
     background-color: #ccc;
     margin-right: 10px;
-}
+    transition: all 0.3s;
 
+}
+.cancel-btn:hover{
+    background-color: #a2a2a2;
+    transition: all 0.3s;
+}
 .create-btn {
     background-color: #091241;
     color: white;
+    transition: all 0.3s;
+
+}
+.create-btn:hover {
+    background-color: #0e1c63;
+    color: white;
+    transition: all 0.3s;
+
 }
 
 
@@ -192,4 +216,9 @@ hr{
 
 .theme-picker input[type="radio"]:checked + label {
     border: 3px solid #fff; /* Highlight selected theme */
+}
+
+.classCode-wrappper{
+    display: flex;
+    flex-direction: column;
 }

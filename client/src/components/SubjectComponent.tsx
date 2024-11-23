@@ -1,4 +1,6 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
+
 
 interface ClassCardProps {
   className: string;
@@ -17,13 +19,20 @@ const convertTo12HourFormat = (time: string) => {
 };
 
 const SubjectComponent: React.FC<{ classCards: ClassCardProps[] }> = ({ classCards }) => {
+  const navigate = useNavigate();
+
   return (
-    <div className="class-container">
+   
+    <div className="class-container"> 
+
       {classCards.map((classCard, index) => (
         <div
           key={index}
           className="class-card"
           style={{ backgroundColor: classCard.theme }}
+              
+        // Add backend here - navigate to specific class overview (must be different from prof and)
+          onClick={() => navigate("/class-overview")}
         >
           <div className="class-card-Subject">{classCard.className}</div>
           <div className="class-card-Time">

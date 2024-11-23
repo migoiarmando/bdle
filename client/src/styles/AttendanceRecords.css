@@ -1,0 +1,124 @@
+
+
+.top-container {
+    display: flex;
+    gap: 5rem;
+    margin: 1rem;
+}
+
+.top-left-container {
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 20px;
+}
+
+.attendance {
+    background-color: #091241;
+    color: white;
+    padding: 10px 8rem 10px 8rem;
+    font-size: 13px;
+    font-weight: 500;
+    display: block; 
+}
+
+.overall {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 5rem;
+    padding-top: 2rem;
+    font-size: 2rem;
+}
+
+.top-right-container {
+    width: 100%;
+}
+.top-subject{
+    display: flex;
+    justify-content:center;
+    color: gray;
+}
+
+.class-cards {
+    background-color: #2e4c97;
+    border-radius: 32px;
+    color: white;
+    overflow: hidden;
+}
+
+.class-card-Subjects {
+    display: flex;
+    justify-content: center;
+    font-size: 48px;
+    margin-top: 15px;
+    font-weight: 300;
+}
+
+.class-card-Times {
+    display: flex;
+    justify-content: center;
+    font-size: 16px;
+    padding: 10px 0;
+    font-weight: 200;
+}
+
+.class-card-Teachers {
+    background-color: white;
+    color: #a8a8a8;
+    padding: 10px;
+    font-size: 13px;
+    text-align: center;
+}
+
+.records-container {
+    margin-top: 2rem;
+    overflow-x: auto;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    text-align: center;
+    margin-top: 1rem;
+}
+
+th, td {
+    padding: 10px;
+}
+tbody tr:hover {
+    background-color: #f1f1f1;
+}
+
+th {
+    background-color: #f5f5f5;
+    font-weight: 500;
+    color: #091241;
+}
+
+td {
+    font-size: 13px;
+    color: #333;
+}
+
+.present {
+    color: green;
+}
+
+.late {
+    color: orange;
+}
+
+.absent {
+    color: red;
+}
+.user-profile{
+    display: flex;
+}
+.username{
+    display: flex;
+    align-items: center;
+    margin: 0 2rem;
+    color: gray;
+}

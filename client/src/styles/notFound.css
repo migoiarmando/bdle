@@ -1,0 +1,14 @@
+.content{
+    background-color: #fff;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+.content h3{
+    margin-top: 1rem;
+}
+.notfound-content{
+    font-size: 0.80rem;
+}

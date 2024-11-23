@@ -1,0 +1,94 @@
+.main-container{
+    height: 100vh;
+
+}
+.container-subject {
+  display: flex;
+  text-align: center;
+  margin: 1rem 3rem;
+}
+
+.specific-date-container {
+    border-radius: 22px;
+    display: flex;
+    flex-direction: column;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.date-week {
+  background-color: #091241;
+  color: #f4f4f9;
+  width: 100%;
+  padding: 15px;
+  font-size: 2rem;
+  
+}
+
+.date-day {
+  padding: 18px 13rem;
+  font-size: 6rem;
+}
+
+.class-cards {
+  width: 800px;
+  margin-left: 7rem;
+  background-color: #2e4c97;
+  border-radius: 32px;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+  color: white;
+  overflow: hidden;
+}
+
+.class-cards-Subject {
+  padding: 10px;
+  font-weight: light;
+  font-size: 30px;
+  margin-top: 15px;
+  font-size: 5rem;
+  font-weight: 200;
+}
+
+.class-cards-Time {
+  font-weight: light;
+  font-size: 25px;
+  font-weight: 200;
+  padding: 10px 0;
+}
+
+.class-cards-Teacher {
+  background-color: white;
+  color: #a8a8a8;
+  padding: 10px;
+  border-top: 3px solid #f4f4f9;
+  font-weight: thin;
+  text-align: center;
+}
+
+.records-container {
+  margin: 1rem;
+  display: flex;
+}
+
+.student {
+  width: 33.33%;
+  height: 300px;
+  font-size: 0.90rem;
+}
+
+.student p {
+  border-top: 1px solid rgba(128, 128, 128, 0.154);
+  font-weight: 300;
+  padding: 5px 0;
+}
+
+.student h4 {
+  padding: 1rem 0;
+  border-bottom: 1px solid rgba(128, 128, 128, 0.325);
+}
+
+.student h5 {
+  background-color: rgba(128, 128, 128, 0.143);
+  font-weight: 300;
+  font-size: 1rem;
+  padding: 10px 0;
+}

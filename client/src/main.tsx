@@ -6,14 +6,24 @@ import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 
 
 import StudentForm from "./pages/StudentForm.tsx";
-// Pages
-import LoginPage from "./pages/login.tsx"
-import ManagerHomepage from "./pages/HomeManager.tsx";
-import StudentHomepage from "./pages/HomeStudent.tsx";
-import ClassOverview from "./pages/ClassOverview.tsx";
 
+// Pages
+import LoginPage from "./pages/login.tsx";
 import Continue from "./pages/Continue.tsx";
-import StudentClassOverview from "./pages/StudentClassOverview.tsx";
+import NotFound from "./pages/NotFound.tsx";
+
+// Prof Pages
+import ManagerHomepage from "./pages/ProfViews/HomeManager.tsx";
+import ClassOverview from "./pages/ProfViews/ClassOverview.tsx";
+import CalendarManager from "./pages/ProfViews/CalendarManager.tsx";
+import SpecificDateManager from "./pages/ProfViews/SpecificDateManager.tsx";
+
+// Student Pages
+import StudentHomepage from "./pages/StudentViews/HomeStudent.tsx";
+import StudentClassOverview from "./pages/StudentViews/StudentClassOverview.tsx";
+import CalendarStudent from "./pages/StudentViews/CalendarStudent.tsx";
+import SpecificDateStudent from "./pages/StudentViews/SpecificDateStudent.tsx"
+import AttendanceRecords from "./pages/ProfViews/AttendanceRecords.tsx";
 
 createRoot(document.getElementById("root")!).render(
   <StrictMode>
@@ -25,24 +35,33 @@ createRoot(document.getElementById("root")!).render(
         <Route path="/login" element={<LoginPage />} />
         <Route path="/continue" element={<Continue />} />
         
-        <Route  path="/class-overview" element={<ClassOverview />} />
 
         {/* Student Routes */}
-          {/* Home */}
+      
           <Route  path="/student-home" element={<StudentHomepage />} />
-          <Route  path="/class-overview-student" element={<StudentClassOverview />} />
-
-          {/* <Route  path="/class/:id" element={<Class />} /> */}
+          <Route  path="/class-overview-student" element={<StudentClassOverview />} />          
+          <Route  path="/calendar-student" element={<CalendarStudent />} />
           
-        {/* Teacher's Routes */}
-          {/* Home */}
-          <Route  path="/manager-home" element={<ManagerHomepage />} />
-          {/* <Route  path="/class-overview/:id" element={<ClassOverview />} /> */}
+          {/* change to dynamic class and date on click */}
+          <Route  path="/specific-date-student" element={<SpecificDateStudent />} />
 
-          {/* Calendar */}
-          {/* <Route  path="/calendar" element={<Calendar />} />
-          <Route  path="calendar-class/:id" element={<Class />} />
-          <Route  path="attendance-view/:id" element={<AttendanceView />} /> */}
+
+        {/* Teacher's Routes */}
+          
+          <Route  path="/manager-home" element={<ManagerHomepage />} />
+          <Route  path="/class-overview" element={<ClassOverview />} />
+          <Route  path="/calendar-manager" element={<CalendarManager />} />
+          
+          {/* change to dynamic class and date on click */}
+          <Route  path="/specific-date-manager" element={<SpecificDateManager />} />
+
+          {/* No button to this routing yet */}
+          <Route  path="/attendance-records" element={<AttendanceRecords />} />
+          
+     
+          {/* 404 */}
+          <Route path="*" element={<NotFound />} />
+
       </Routes>
     </Router>
   </StrictMode>
