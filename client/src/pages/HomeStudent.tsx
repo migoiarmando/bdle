@@ -10,7 +10,7 @@ import StudentNavbar from "../components/StudentNavbar";
 import Sidebar from "../components/Sidebar";
 
 const HomeManager: React.FC = () => {
-  const navigate = useNavigate();
+  //const navigate = useNavigate();
 
   const [isOverlayActive, setIsOverlayActive] = useState(false);
   const [classCards, setClassCards] = useState<

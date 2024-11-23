@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import "./../styles/HomeManager.css";
-import logo from "../assets/adnu.svg";
+//import logo from "../assets/adnu.svg";
 
 // components
 import ProfessorNavbar from "../components/ProfessorNavbar";
@@ -9,7 +9,7 @@ import { useNavigate } from "react-router-dom";
 import Sidebar from "../components/Sidebar";
 
 const HomeManager: React.FC = () => {
-  const navigate = useNavigate();
+  //const navigate = useNavigate();
 
   const [isOverlayActive, setIsOverlayActive] = useState(false);
   const [classCards, setClassCards] = useState<
