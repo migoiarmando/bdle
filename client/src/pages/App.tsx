@@ -17,7 +17,7 @@ function App() {
           <button onClick={() => navigate("/login")}
           className="btn teacher">Sign In as Teacher</button>
           <button
-            className="btn student"
+            className="btn students"
             onClick={() => navigate("/student-form")}
           >
             Sign Up as Student
