@@ -42,7 +42,11 @@ const login = () => {
 
           <p className="p-login">Or continue with</p>
 
-          <button className="google-btn" type="button" onClick={() => navigate("/continue")}>
+          <button
+            className="google-btn"
+            type="button"
+            onClick={() => navigate("/continue")}
+          >
             <img src={googleLogo} className="google" alt="google" />
             Continue with Google
           </button>
