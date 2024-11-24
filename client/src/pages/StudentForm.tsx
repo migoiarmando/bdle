@@ -70,33 +70,23 @@ const StudentForm = () => {
             <p>Enter your personal Information</p>
             <div>
               <label>Surname</label>
-              <input type="text" />
+              <input className="input-wrapper" type="text" />
             </div>
             <div>
               <label>First Name</label>
-              <input type="text" />
+              <input className="input-wrapper" type="text" />
             </div>
             <div className="birt">
               <label>Date of Birth</label>
               <div className="grouping">
                 <input
-                  type="text"
+                  type="date"
                   pattern="[0-9]*"
                   name="day"
                   placeholder="DD"
+                  className="input-wrapper date-wrapper"
                 />
-                <input
-                  type="text"
-                  pattern="[0-9]*"
-                  name="month"
-                  placeholder="MM"
-                />
-                <input
-                  type="text"
-                  pattern="[0-9]*"
-                  name="year"
-                  placeholder="YYYY"
-                />
+                
               </div>
             </div>
           </div>
@@ -109,37 +99,43 @@ const StudentForm = () => {
             <h2>Student information</h2>
             <div>
               <label>IGN</label>
-              <input type="text" />
+              <input className="input-wrapper" type="text" />
             </div>
             <div>
               <label>Email</label>
-              <input type="text" />
+              <input className="input-wrapper" type="text" />
             </div>
             <div>
               <label>Password</label>
-              <input type="text" />
+              <input className="input-wrapper" type="text" />
             </div>
             <div>
               <label>Year Level</label>
-              <input type="text" />
+              <input className="input-wrapper" type="text" />
             </div>
           </div>
           <div className="btn-group">
-            <button
-              type="button"
-              className="btn-prev"
-              onClick={handlePrev}
-              disabled={activeStep === 1}
-            >
-              Back
-            </button>
+            {activeStep > 1 ? (
+              <button
+                type="button"
+                className="btn-prev"
+                onClick={handlePrev}
+              >
+                Go Back
+              </button>
+            ) : (
+              <Link to="/">
+                <button type="button" className="btn-prev">
+                  Go Back
+                </button>
+              </Link>
+            )}
             {activeStep < steps.length && (
               <button type="button" className="btn-next" onClick={handleNext}>
                 Next Step
               </button>
             )}
             {activeStep === steps.length && (
-              // Add Success here then redirect sa login (auto redirect pa to ayusin na lang)
               <Link to="/login">
                 <button type="button" className="btn-submit">
                   Submit
@@ -147,6 +143,7 @@ const StudentForm = () => {
               </Link>
             )}
           </div>
+
         </form>
       </div>
     </div>

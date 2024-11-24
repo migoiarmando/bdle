@@ -112,7 +112,7 @@ form .grouping{
     display: flex;
 }
 form .grouping input{
-    max-width: 70px;
+    max-width: 10rem;
     text-align: center;
     margin-right: 1em;
 }
@@ -149,7 +149,9 @@ form > div.active {
     display: block;
 }
 
-
+.input-wrapper{
+    color: black;
+}
 .btn-group {
     display: flex;
     flex: wrap;
