@@ -6,7 +6,7 @@ const ProfessorNavbar: React.FC = () => {
   return (
     <div className="nav-wrapper">
           <div className="welcome-wrapper">
-            {/* add dynamic nameand photo here */}
+            {/* add dynamic name and photo here */}
             <span>Welcome, Professor </span>
             <img className="user-img" src={userImage} alt="User" />
           </div>
