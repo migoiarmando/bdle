@@ -27,9 +27,9 @@ function App() {
             Continue as Student
           </button>
         </div>
-        <p className="lg-p" onClick={() => navigate("/login")}>
+        {/* <p className="lg-p" onClick={() => navigate("/login")}>
           Don't have an account? <a href="#">Sign In</a>
-        </p>
+        </p> */}
       </div>
       <Footer />
     </div>
