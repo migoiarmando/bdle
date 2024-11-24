@@ -21,7 +21,7 @@ function App() {
             Continue as Teacher
           </button>
           <button
-            className="btn student"
+            className="btn student-btn"
             onClick={() => navigate("/student-home")}
           >
             Continue as Student
