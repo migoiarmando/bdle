@@ -51,9 +51,9 @@ const login = () => {
             Continue with Google
           </button>
 
-          <p onClick={() => navigate("/")}>
+          {/* <p onClick={() => navigate("/")}>
             Don't have an account? <a href="#">Sign Up</a>
-          </p>
+          </p> */}
         </div>
         <Footer></Footer>
       </div>
