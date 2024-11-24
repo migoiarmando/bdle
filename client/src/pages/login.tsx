@@ -3,12 +3,25 @@ import adnulogo from "../assets/adnu.svg";
 import googleLogo from "../assets/google.svg";
 import { useNavigate } from "react-router-dom";
 import Footer from "../components/Footer";
+import { useState } from "react";
 
 const login = () => {
   const navigate = useNavigate();
+  const [errorMessage, setErrorMessage] = useState("");
+
   const navigateToHomePage = () => {
-    navigate("/manager-home");
+    const email = (document.getElementById("email") as HTMLInputElement).value;
+    const password = (document.getElementById("password") as HTMLInputElement)
+      .value;
+
+    if (!email || !password) {
+      setErrorMessage("Email or Password cannot be empty.");
+    } else {
+      setErrorMessage("");
+      navigate("/manager-home");
+    }
   };
+
   return (
     <>
       <div className="login-container">
@@ -32,6 +45,8 @@ const login = () => {
             <input id="password" type="password" placeholder="xxxxxxxx" />
           </div>
 
+          {errorMessage && <p className="error-message">{errorMessage}</p>}
+
           <button
             onClick={navigateToHomePage}
             className="login-btn"
@@ -51,9 +66,9 @@ const login = () => {
             Continue with Google
           </button>
 
-          {/* <p onClick={() => navigate("/")}>
+          <p onClick={() => navigate("/")}>
             Don't have an account? <a href="#">Sign Up</a>
-          </p> */}
+          </p>
         </div>
         <Footer></Footer>
       </div>
