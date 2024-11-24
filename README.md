@@ -27,7 +27,7 @@ Welcome to the BDLE repository, a Class Management and Attendance System designe
 
 **Authentication:**
 
-- Auth0
+- Firebase
 
 **Version Control:**
 
