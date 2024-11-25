@@ -2,9 +2,12 @@ import React from "react";
 import logo from "../assets/adnu.svg";
 import "./styles/sidebar.css";
 import { useNavigate } from "react-router-dom";
+import useLogout from "../hooks/useLogout";
 
 const StudentSidebar: React.FC = () => {
   const navigate = useNavigate();
+
+  const { handleLogout } = useLogout();
 
   return (
     <div className="sidebar">
@@ -16,7 +19,7 @@ const StudentSidebar: React.FC = () => {
           <a onClick={() => navigate("/student-home")}>Home</a>
           <a onClick={() => navigate("/calendar-student")}>Calendar</a>
           <a onClick={() => navigate("/404")}>Settings</a>
-          <a onClick={() => navigate("/login")}>Log out</a>
+          <a onClick={handleLogout}>Log out</a>
         </ul>
       </div>
     </div>

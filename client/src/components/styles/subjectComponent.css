@@ -1,58 +1,61 @@
 .class-container {
-    display: flex;
-    flex-wrap: wrap; 
-    cursor: pointer;
+  display: flex;
+  flex-wrap: wrap;
+  cursor: pointer;
 }
 .class-card {
-    flex: 1 1 calc(33.333% - 2rem); 
-    max-width: 330px; 
-    width: 330px;
-    background-color: #2e4c97; 
-    border-radius: 10px;
-    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
-    color: white;
-    overflow: hidden;
-    margin: 2rem 1rem 1rem 2rem;
-    transition: all 0.3s;
+  flex: 1 1 calc(33.333% - 2rem);
+  max-width: 330px;
+  width: 330px;
+  background-color: #2e4c97;
+  border-radius: 10px;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+  color: white;
+  overflow: hidden;
+  margin: 2rem 1rem 1rem 2rem;
+  transition: all 0.3s;
 }
 
-
-
 .class-card-Subject {
-    padding: 10px;
-    font-weight: light;
-    font-size: 3rem;
-    margin-left: 15px;
-    margin-top: 15px;
+  padding: 10px;
+  font-weight: light;
+  font-size: 3rem;
+  margin-left: 15px;
+  margin-top: 15px;
 }
 
 .class-card-Time {
-    padding: 10px;
-    margin-left: 12px;
-    font-weight: light;
-    font-size: 25px;
+  padding: 10px;
+  margin-left: 12px;
+  font-weight: light;
+  font-size: 25px;
 }
 
 .class-card-Teacher {
-    width: 330px;
-    background-color: white;
-    color: #a8a8a8;
-    padding: 10px;
-    border-top: 3px solid #f4f4f9;
-    font-weight: thin;
-    text-align: center;
+  width: 330px;
+  background-color: white;
+  color: #a8a8a8;
+  padding: 10px;
+  border-top: 3px solid #f4f4f9;
+  font-weight: thin;
+  text-align: center;
 }
 .class-card:hover {
-    transform: translateY(-5px);
-    transition: all 0.3s;
+  transform: translateY(-5px);
+  transition: all 0.3s;
 }
 
 .class-card-Subject {
-    padding: 15px;
-    font-size: 24px;
+  padding: 15px;
+  font-size: 24px;
 }
 
 .class-card-Time {
-    padding: 15px;
-    font-size: 18px;
+  padding: 15px;
+  font-size: 18px;
+}
+
+.user-img {
+  border-radius: 50%;
+  width: 50px;
 }

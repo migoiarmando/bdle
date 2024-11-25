@@ -12,23 +12,23 @@ function App() {
           <img src={logo} alt="Logo" className="logo-image" />
         </div>
         <h2 className="lg-header-2">Welcome to BDLE</h2>
-      
+
         <div className="buttons">
-          <button onClick={() => navigate("/login")}
-          className="btn teacher">Sign In as Teacher</button>
+          <button
+            onClick={() => navigate("/login/Teacher")}
+            className="btn teacher"
+          >
+            Sign In as Teacher
+          </button>
           <button
             className="btn students"
-            onClick={() => navigate("/student-form")}
+            onClick={() => navigate("/login/Student")}
           >
-            Sign Up as Student
+            Sign In as Student
           </button>
         </div>
-        <p  className="lg-p"  onClick={() => navigate("/login")}>
-          Don't have an account? <a href="#">Sign In</a>
-        </p>
       </div>
       <Footer />
-
     </div>
   );
 }
