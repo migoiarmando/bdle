@@ -78,7 +78,7 @@ const LoginPage = () => {
           </button>
 
           <p onClick={() => navigate("/")}>
-            Don't have an account? <a href="#">Sign Up</a>
+          Clicked wrong? <a href="#">Go back</a>
           </p>
         </div>
         <Footer></Footer>
