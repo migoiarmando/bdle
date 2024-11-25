@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import "../../styles/HomeManager.css";
-//import logo from "../assets/adnu.svg";
+import closeBtn from "../../assets/closebtn.svg";
 
 // components
 //import ProfessorNavbar from "../components/ProfessorNavbar";
@@ -41,6 +41,7 @@ const HomeManager: React.FC = () => {
     const scheduleStart = formData.get("scheduleStart") as string;
     const scheduleEnd = formData.get("scheduleEnd") as string;
     const selectedTheme = formData.get("theme") as string;
+    const [, setIsOverlayActive] = useState(false);
 
     const newClassCard = {
       className,
@@ -55,7 +56,15 @@ const HomeManager: React.FC = () => {
     setIsOverlayActive(false);
     (e.target as HTMLFormElement).reset();
   };
-
+  
+  const handleCloseOverlay = () => {
+    setIsOverlayActive(false);
+  };
+  const handleOutsideClick = (e: React.MouseEvent) => {
+    if ((e.target as HTMLElement).id === "overlay") {
+      handleCloseOverlay();
+    }
+  };
   const getThemeColor = (theme: string) => {
     switch (theme) {
       case "blue":
@@ -92,10 +101,12 @@ const HomeManager: React.FC = () => {
 
       {/* Overlay */}
       {isOverlayActive && (
-        <div id="overlay" className="overlay active">
+        <div id="overlay" className="overlay active"  onClick={handleOutsideClick}>
           <div className="add-class-form-container">
+ 
             <div className="add-class-header">
               <h2>Join Class</h2>
+    
             </div>
             
             <form id="createClassForm" onSubmit={handleFormSubmit}>
@@ -124,9 +135,12 @@ const HomeManager: React.FC = () => {
                 <label htmlFor="purpleTheme" className="purple"></label>
               </div>
 
-     
+              
               <button type="submit" className="create-btn">
                 Join
+              </button>
+              <button type="submit" className="close-btn" onClick={handleCloseOverlay}>
+                Cancel
               </button>
             </form>
           </div>
