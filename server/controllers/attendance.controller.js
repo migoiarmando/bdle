@@ -1,5 +1,9 @@
 import get from "lodash/get.js";
 import Attendance from "../models/attendance.model.js";
+import { ATTENDANCE_STATUS } from "../constants/AttendanceStatus.js";
+import ClassStudent from "../models/class-student.model.js";
+import StudentAttendance from "../models/student-attendance.model.js";
+import { STUDENT_ATTENDANCE_STATUS } from "../constants/StudentAttendanceStatus.js";
 
 export const addAttendance = async (req, res, next) => {
   try {
@@ -35,6 +39,39 @@ export const addAttendance = async (req, res, next) => {
       message: "Attendance is successfully added.",
       attendance: newAttendance,
     });
+
+    setTimeout(async () => {
+      await Attendance.findByIdAndUpdate(newAttendance._id, {
+        status: ATTENDANCE_STATUS.INACTIVE,
+      });
+      const classStudent = await ClassStudent.findOne({ classId });
+      const studentsWithAttendance = await StudentAttendance.find({
+        attendanceCode,
+      });
+
+      const studentsOnClassId = classStudent.students;
+      const studentsWithAttendanceId = studentsWithAttendance.map(
+        (student) => student.userId
+      );
+
+      const absentStudents = studentsOnClassId.filter(
+        (item1) =>
+          !studentsWithAttendanceId.some((item2) => item1.equals(item2))
+      );
+
+      absentStudents.forEach(async (absentStudent) => {
+        const savedAbsentStudent = await StudentAttendance({
+          userId: absentStudent,
+          classId,
+          attendanceId: newAttendance._id,
+          attendanceCode: attendanceCode,
+          studentIGN: "NONE",
+          answerOfTheDay: "NONE",
+          status: STUDENT_ATTENDANCE_STATUS.ABSENT,
+        });
+        await savedAbsentStudent.save();
+      });
+    }, 5400 * 1000); //1.5 hrs in seconds = 5400
   } catch (error) {
     console.log(error);
     res.status(500).json({ message: "Add attendance error occured." });

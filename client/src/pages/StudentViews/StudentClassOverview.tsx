@@ -22,6 +22,9 @@ import { indicator } from "../../utils/attendance-indicator";
 const StudentClassOverview: React.FC = () => {
   const navigate = useNavigate();
 
+  /** Date-Time */
+  const { date, time, militaryTime } = useRealtimeClock();
+
   /** Fetch Selected Class */
   const { classId } = useParams();
   const [classCard, setClassCard] = useState<ClassCardType | null>(null);
@@ -81,7 +84,6 @@ const StudentClassOverview: React.FC = () => {
     axiosClient
       .get(`/student/attendance/${currentAttendance._id}`)
       .then(({ data }) => {
-        console.log(data);
         setCurrentStudentAttendance(data);
       })
       .catch(({ response: { data } }) => {
@@ -109,7 +111,12 @@ const StudentClassOverview: React.FC = () => {
   };
   const handleSubmit = async () => {
     setIsSubmitting(true);
-    const studentAttendance = { attendanceCode, studentIGN, answerOfTheDay };
+    const studentAttendance = {
+      attendanceCode,
+      studentIGN,
+      answerOfTheDay,
+      timeIn: militaryTime,
+    };
     axiosClient
       .post(`/student/attendance/${classId}`, studentAttendance)
       .then(({ data }) => {
@@ -131,9 +138,6 @@ const StudentClassOverview: React.FC = () => {
   const { presentCount, lateCount, absentCount } = useAttendanceStatusCounter({
     studentAttendances,
   });
-
-  /** Date-Time */
-  const { date, time } = useRealtimeClock();
 
   return (
     classCard && (

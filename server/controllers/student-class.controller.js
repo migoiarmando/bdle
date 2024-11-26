@@ -1,6 +1,7 @@
 import get from "lodash/get.js";
 import Class from "../models/class.model.js";
 import StudentClass from "../models/student-class.model.js";
+import ClassStudent from "../models/class-student.model.js";
 
 export const addStudentClass = async (req, res, next) => {
   try {
@@ -15,6 +16,25 @@ export const addStudentClass = async (req, res, next) => {
       return res.status(404).json({ message: "Given class code not found." });
 
     const classId = existingClassCode._id;
+
+    const existingClassStudent = await ClassStudent.findOne({ classId });
+    if (existingClassStudent) {
+      if (!existingClassStudent.students.includes(userId)) {
+        existingClassStudent.students.push(userId);
+        await existingClassStudent.save();
+      } else {
+        return res.status(400).json({
+          message: "Class already exists for this student.",
+        });
+      }
+    } else {
+      const newClassStudent = new ClassStudent({
+        classId,
+        students: [userId],
+      });
+      await newClassStudent.save();
+    }
+
     const existingStudent = await StudentClass.findOne({ userId });
     if (existingStudent) {
       if (!existingStudent.classes.includes(classId)) {

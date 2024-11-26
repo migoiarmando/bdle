@@ -111,7 +111,11 @@ const Calendar = () => {
         <>
           <div>{day}</div>
           {attendancesToDisplay.map((att) => (
-            <a key={att._id} href={`/specific-date-manager/${att._id}`}>
+            <a
+              key={att._id}
+              style={{ display: "block" }}
+              href={`/specific-date-manager/${att._id}`}
+            >
               <strong>{att.attendanceCode}</strong>
             </a>
           ))}

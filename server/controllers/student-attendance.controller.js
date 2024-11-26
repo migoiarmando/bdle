@@ -1,21 +1,31 @@
 import get from "lodash/get.js";
 import Attendance from "../models/attendance.model.js";
 import StudentAttendance from "../models/student-attendance.model.js";
+import Class from "../models/class.model.js";
+import { getStudentAttendanceStatus } from "../helper/getStudentAttendanceStatus.js";
+import { ATTENDANCE_STATUS } from "../constants/AttendanceStatus.js";
 
 export const addStudentAttendance = async (req, res, next) => {
   try {
     const userId = get(req, "user._id");
     const { classId } = req.params;
-    const { attendanceCode, studentIGN, answerOfTheDay } = req.body;
+    const { attendanceCode, studentIGN, answerOfTheDay, timeIn } = req.body;
 
     if (!attendanceCode || !answerOfTheDay)
       return res.status(400).json({ message: "Fill all required fields." });
+
+    const existingClass = await Class.findById(classId);
+    if (!existingClass)
+      return res.status(404).json({ message: "Class does not exist." });
 
     const existingAttendanceCode = await Attendance.findOne({ attendanceCode });
     if (!existingAttendanceCode)
       return res
         .status(404)
         .json({ message: "Given attendance code does not exist." });
+
+    if (existingAttendanceCode.status === ATTENDANCE_STATUS.INACTIVE)
+      return res.status(404).json({ message: "Attendance is not available." });
 
     const existingAttendanceOnUser = await StudentAttendance.findOne({
       userId,
@@ -24,6 +34,10 @@ export const addStudentAttendance = async (req, res, next) => {
     if (existingAttendanceOnUser)
       return res.status(404).json({ message: "You're already in attendance." });
 
+    const status = getStudentAttendanceStatus(
+      existingClass.scheduleStart,
+      timeIn
+    );
     const newStudentAttendance = await StudentAttendance({
       userId,
       classId,
@@ -31,6 +45,7 @@ export const addStudentAttendance = async (req, res, next) => {
       attendanceCode,
       studentIGN,
       answerOfTheDay,
+      status,
     });
 
     if (!newStudentAttendance)

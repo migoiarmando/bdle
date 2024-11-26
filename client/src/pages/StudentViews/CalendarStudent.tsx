@@ -108,7 +108,11 @@ const CalendarStudent = () => {
         <>
           <div>{day}</div>
           {attendancesToDisplay.map((att) => (
-            <a key={att._id} href={`/specific-date-student/${att._id}`}>
+            <a
+              style={{ display: "block" }}
+              key={att._id}
+              href={`/specific-date-student/${att._id}`}
+            >
               <strong>{att.attendanceCode}</strong>
             </a>
           ))}

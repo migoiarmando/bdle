@@ -84,6 +84,7 @@ const AttendanceSubject: React.FC = () => {
       .then(({ data }) => {
         toastSuccess(data.message);
         setCurrentAttendance(data.attendance);
+        window.location.reload();
       })
       .catch(({ response: { data } }) => {
         toastError(data.message);
