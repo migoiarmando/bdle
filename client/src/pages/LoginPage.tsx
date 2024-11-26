@@ -3,11 +3,16 @@ import adnulogo from "../assets/adnu.svg";
 import googleLogo from "../assets/google.svg";
 import { useNavigate, useParams } from "react-router-dom";
 import Footer from "../components/Footer";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import useGoogleSignIn from "../hooks/useGoogleSignIn";
 import { USER_ROLES } from "../constants/UserRoles";
+import axiosClient from "../utils/axios.utils";
+import { useAppDispatch } from "../redux/store.types";
+import { setCurrentUser } from "../redux/user/user.action";
+import { toastError } from "../utils/toastEmitter";
 
 const LoginPage = () => {
+  const dispatch = useAppDispatch();
   const navigate = useNavigate();
 
   const { role } = useParams();
@@ -18,19 +23,25 @@ const LoginPage = () => {
   }, [role, navigate]);
 
   const { signInWithGooglePopUp } = useGoogleSignIn({ role: role! });
-  const [errorMessage, setErrorMessage] = useState("");
 
-  const navigateToHomePage = () => {
+  const handleLogin = () => {
     const email = (document.getElementById("email") as HTMLInputElement).value;
     const password = (document.getElementById("password") as HTMLInputElement)
       .value;
 
     if (!email || !password) {
-      setErrorMessage("Email or Password cannot be empty.");
-    } else {
-      setErrorMessage("");
-      navigate("/manager-home");
+      toastError("Email or Password cannot be empty.");
+      return;
     }
+    axiosClient
+      .post("/auth/login", { email, password, role })
+      .then(({ data }) => {
+        dispatch(setCurrentUser(data));
+      })
+      .catch(({ response: { data } }) => {
+        toastError(data.message);
+      })
+      .finally(() => {});
   };
 
   return (
@@ -41,7 +52,7 @@ const LoginPage = () => {
             <div className="a-logo">
               <img src={adnulogo} alt="adnu logo" />
             </div>
-            <h1>Log In to BDLE</h1>
+            <h1>Log In as {role} to BDLE</h1>
           </div>
 
           <div className="input">
@@ -56,13 +67,7 @@ const LoginPage = () => {
             <input id="password" type="password" placeholder="xxxxxxxx" />
           </div>
 
-          {errorMessage && <p className="error-message">{errorMessage}</p>}
-
-          <button
-            onClick={navigateToHomePage}
-            className="login-btn"
-            type="button"
-          >
+          <button onClick={handleLogin} className="login-btn" type="button">
             Log In
           </button>
 
@@ -78,7 +83,7 @@ const LoginPage = () => {
           </button>
 
           <p onClick={() => navigate("/")}>
-          Clicked wrong? <a href="#">Go back</a>
+            Don't have an account? <a href="#">Sign Up</a>
           </p>
         </div>
         <Footer></Footer>

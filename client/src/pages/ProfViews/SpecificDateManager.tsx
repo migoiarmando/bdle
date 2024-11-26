@@ -1,81 +1,76 @@
-import React from 'react';
-import '../../styles/SpecificDate.css';
-import Sidebar from '../../components/Sidebar';
-import ProfessorNavbar from '../../components/ProfessorNavbar';
-
-type ClassCardProps = {
-  subject: string;
-  time: string;
-  teacher: string;
-};
-
-type RecordsProps = {
-  title: string;
-  placeholder: string;
-  records: string[];
-};
-
-const DateCard: React.FC = () => {
-  return (
-    <div className="specific-date-container">
-      <div className="date-week">Tue</div>
-      <div className="date-day">3</div>
-    </div>
-  );
-};
-
-const ClassCard: React.FC<ClassCardProps> = ({ subject, time, teacher }) => {
-  return (
-    <div className="class-cards">
-      <div className="class-cards-Subject">{subject}</div>
-      <div className="class-cards-Time">{time}</div>
-      <div className="class-cards-Teacher">{teacher}</div>
-    </div>
-  );
-};
-
-const Records: React.FC<RecordsProps> = ({ title, placeholder, records }) => {
-  return (
-    <div className="student">
-      <h4>{title}</h4>
-      <h5>{placeholder}</h5>
-      {records.map((record, index) => (
-        <p key={index}>{record}</p>
-      ))}
-    </div>
-  );
-};
+import React, { useEffect, useState } from "react";
+import "../../styles/SpecificDate.css";
+import Sidebar from "../../components/Sidebar";
+import ProfessorNavbar from "../../components/ProfessorNavbar";
+import { StudentAttendanceType } from "../../types/student-attendance.types";
+import { AttendanceType } from "../../types/attendance.type";
+import axiosClient from "../../utils/axios.utils";
+import { toastError } from "../../utils/toastEmitter";
+import { useParams } from "react-router-dom";
+import DateCard from "../../components/DateCard";
+import ClassCard from "../../components/ClassCard";
+import StudentAttendanceTable from "../../components/StudentAttendanceTable";
 
 const SpecificDateManager: React.FC = () => {
-  const studentNames = Array(6).fill('Karl Axcel E. Lumabi');
-  const ignRecords = Array(6).fill('Kash');
-  const questionRecords = Array(6).fill('goods');
+  const { attendanceId } = useParams();
+  /** Fetch Attendance By Id */
+  const [currentAttendance, setCurrentAttendance] =
+    useState<AttendanceType | null>(null);
+  useEffect(() => {
+    axiosClient
+      .get(`/attendance/${attendanceId}`)
+      .then(({ data }) => {
+        setCurrentAttendance(data);
+      })
+      .catch(({ response: { data } }) => {
+        toastError(data.message);
+      })
+      .finally(() => {});
+  }, [attendanceId, setCurrentAttendance]);
+
+  /** Fetch Student Attendances */
+  const [studentAttendances, setStudentAttendances] = useState<
+    StudentAttendanceType[] | []
+  >([]);
+  useEffect(() => {
+    if (!currentAttendance) return;
+    axiosClient
+      .get(`students/attendance/${currentAttendance._id}`)
+      .then(({ data }) => {
+        setStudentAttendances(data);
+      })
+      .catch(({ response: { data } }) => {
+        toastError(data.message);
+      })
+      .finally(() => {});
+  }, [currentAttendance]);
 
   return (
     <div className="nav-container">
       <Sidebar />
       <div className="main-container">
-      <ProfessorNavbar />
+        <ProfessorNavbar />
 
         <div className="container-subject">
-          <DateCard />
+          <DateCard
+            date={currentAttendance ? currentAttendance.createdAt : new Date()}
+          />
           <div className="subject">
             <ClassCard
-              subject="ITMC 113"
-              time="TTH 1:30PM - 3:00PM"
-              teacher="Kevin G. Vega"
+              subject={currentAttendance?.classId.className ?? ""}
+              time={
+                currentAttendance
+                  ? `${currentAttendance.classId.scheduleDay} ${currentAttendance.classId.scheduleStart}-${currentAttendance.classId.scheduleEnd}`
+                  : "TTH 1:30PM - 3:00PM"
+              }
+              section={currentAttendance?.classId.section ?? ""}
             />
           </div>
         </div>
-        <div className="records-container">
-          <Records title="Names" records={studentNames} placeholder={''} />
-          <Records title="IGN" placeholder="" records={ignRecords} />
-          <Records
-            title="Question of the day"
-            placeholder=""
-            records={questionRecords}
-          />
-        </div>
+        <StudentAttendanceTable
+          currentAttendance={currentAttendance}
+          studentAttendances={studentAttendances}
+        />
       </div>
     </div>
   );

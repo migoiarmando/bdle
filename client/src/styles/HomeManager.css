@@ -10,22 +10,6 @@
     flex-direction: column;
     color: aliceblue;
 }
-.add-class-header{
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
-.closebtn-wrapper{
-    display: flex;
-    justify-content: flex-end;
-}
-.close-btn {
-    background: none;
-    border: none;
-    cursor: pointer;
-    top: 14rem;
-    right: 30rem;
-  }
 
 /* .sidebar {
     background-color: #091241;
@@ -193,15 +177,7 @@ hr{
     transition: all 0.3s;
 
 }
-.close-btn{
-    transition: all 0.3s;
 
-}
-.close-btn:hover{
-    color: #4173e0;
-    transition: all 0.3s;
-
-}
 
 .theme-picker {
     display: flex; 

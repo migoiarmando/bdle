@@ -1,9 +1,9 @@
 import { config } from "dotenv";
 import express from "express";
 import cookieParser from "cookie-parser";
+import path from "path";
 import connectToMongoDb from "./db/connectToMongoDb.js";
 import apiRoute from "./routes/api.route.js";
-import path from "path";
 
 /** Initialization */
 config();

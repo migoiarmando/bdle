@@ -5,208 +5,281 @@ import presentStudentsIcon from "../../assets/present-students-icon.svg";
 import lateStudentsIcon from "../../assets/late-students-icon.svg";
 import absentStudentsIcon from "../../assets/absent-students-icon.svg";
 
-import presentCircle from "../../assets/student-status/present-circle-icon.svg";
-// import lateCircle from "../../assets/student-status/late-circle-icon.svg";
-// import absentCircle from "../../assets/student-status/absent-circle-icon.svg";
-
-
 import StudentNavbar from "../../components/StudentNavbar";
 import StudentSidebar from "../../components/StudentSidebar";
 
-//import axios from "axios"; // Import axios for backend requests
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
+import { ClassCardType } from "../../types/class.type";
+import axiosClient from "../../utils/axios.utils";
+import { toastError, toastSuccess } from "../../utils/toastEmitter";
+import { convertTo12HourFormat } from "../../utils/timeFormatter";
+import { AttendanceType } from "../../types/attendance.type";
+import { StudentAttendanceType } from "../../types/student-attendance.types";
+import useAttendanceStatusCounter from "../../hooks/useAttendanceStatusCounter";
+import useRealtimeClock from "../../hooks/useRealtimeClock";
+import { indicator } from "../../utils/attendance-indicator";
 
 const StudentClassOverview: React.FC = () => {
-  const [isAddingAttendance, setIsAddingAttendance] = useState(false);
-  const [attendanceCode, setAttendanceCode] = useState("");
-  const [questionOfTheDay, setQuestionOfTheDay] = useState("");
-  const [isSubmitting, setIsSubmitting] = useState(false); // To handle submission state
   const navigate = useNavigate();
 
+  /** Fetch Selected Class */
+  const { classId } = useParams();
+  const [classCard, setClassCard] = useState<ClassCardType | null>(null);
   useEffect(() => {
-    function updateTime() {
-      const timeElement = document.getElementById("time") as HTMLElement;
-      const now = new Date();
-      let hours = now.getHours();
-      const minutes = String(now.getMinutes()).padStart(2, "0");
-      const ampm = hours >= 12 ? "PM" : "AM";
+    axiosClient
+      .get(`/class/${classId}`)
+      .then(({ data }) => {
+        setClassCard(data);
+      })
+      .catch(({ response: { data } }) => {
+        toastError(data.message);
+      })
+      .finally(() => {});
+  }, [classId]);
 
-      hours = hours % 12 || 12; // Convert to 12-hour format
-      timeElement.textContent = `${hours}:${minutes} ${ampm}`;
-    }
+  /** Fetch latest attendance */
+  const [currentAttendance, setCurrentAttendance] =
+    useState<AttendanceType | null>(null);
+  useEffect(() => {
+    axiosClient
+      .get(`/attendance/latest/${classId}`)
+      .then(({ data }) => {
+        setCurrentAttendance(data);
+      })
+      .catch(({ response: { data } }) => {
+        toastError(data.message);
+      })
+      .finally(() => {});
+  }, [classId, setCurrentAttendance]);
 
-    setInterval(updateTime, 1000);
-    updateTime(); // Initial call to display the time immediately
-  }, []);
+  /** Fetch Student Attendances */
+  const [studentAttendances, setStudentAttendances] = useState<
+    StudentAttendanceType[] | []
+  >([]);
+  useEffect(() => {
+    if (!currentAttendance) return;
+    const fetchStudentAttendances = () => {
+      axiosClient
+        .get(`students/attendance/${currentAttendance._id}`)
+        .then(({ data }) => {
+          setStudentAttendances(data);
+        })
+        .catch(({ response: { data } }) => {
+          toastError(data.message);
+        })
+        .finally(() => {});
+    };
 
+    setInterval(fetchStudentAttendances, 1000);
+  }, [currentAttendance]);
+
+  /** Fetch Current User Student Attendance */
+  const [currentStudentAttendance, setCurrentStudentAttendance] =
+    useState<StudentAttendanceType | null>(null);
+  useEffect(() => {
+    if (!currentAttendance) return;
+    axiosClient
+      .get(`/student/attendance/${currentAttendance._id}`)
+      .then(({ data }) => {
+        console.log(data);
+        setCurrentStudentAttendance(data);
+      })
+      .catch(({ response: { data } }) => {
+        toastError(data.message);
+      })
+      .finally(() => {});
+  }, [currentAttendance, setCurrentStudentAttendance]);
+
+  /** Join Attendance */
+  const [isAddingAttendance, setIsAddingAttendance] = useState(false);
+  const [attendanceCode, setAttendanceCode] = useState("");
+  const [studentIGN, setStudentIGN] = useState("");
+  const [answerOfTheDay, setAnswerOfTheDay] = useState("");
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const handleCreateAttendanceClick = () => {
     setIsAddingAttendance(true);
   };
-
   const handleCancelClick = () => {
     setIsAddingAttendance(false);
     resetFields();
   };
-
-  const handleSubmit = async () => {
-    if (attendanceCode.trim() && questionOfTheDay.trim()) {
-      try {
-        setIsSubmitting(true);
-
-        // Replace with actual student ID (e.g., from auth)
-        //const studentId = "student-id-here";
-
-        // Send data to the backend
-        // const response = await axios.post("/api/join-attendance", {
-        //   attendanceCode,
-        //   questionOfTheDay,
-        //   studentId,
-        // });
-
-        // Handle success response
-        alert("Attendance created successfully!");
-        setIsAddingAttendance(false);
-        resetFields();
-      } catch (error) {
-        console.error("Error joining attendance:", error);
-        alert("There was an error joining attendance. Please try again.");
-      } finally {
-        setIsSubmitting(false);
-      }
-    } else {
-      alert("Please fill in all fields.");
-    }
-  };
-
   const resetFields = () => {
     setAttendanceCode("");
-    setQuestionOfTheDay("");
+    setAnswerOfTheDay("");
+  };
+  const handleSubmit = async () => {
+    setIsSubmitting(true);
+    const studentAttendance = { attendanceCode, studentIGN, answerOfTheDay };
+    axiosClient
+      .post(`/student/attendance/${classId}`, studentAttendance)
+      .then(({ data }) => {
+        toastSuccess(data.message);
+        setCurrentStudentAttendance(data.studentAttendance);
+        setStudentAttendances([...studentAttendances, data.studentAttendance]);
+        setIsAddingAttendance(false);
+        resetFields();
+      })
+      .catch(({ response: { data } }) => {
+        toastError(data.message);
+      })
+      .finally(() => {
+        setIsSubmitting(false);
+      });
   };
 
+  /** Attendances */
+  const { presentCount, lateCount, absentCount } = useAttendanceStatusCounter({
+    studentAttendances,
+  });
+
+  /** Date-Time */
+  const { date, time } = useRealtimeClock();
+
   return (
-    <div className="nav-container">
-      <StudentSidebar />
+    classCard && (
+      <div className="nav-container">
+        <StudentSidebar />
 
-      <div className="main-content">
-        <StudentNavbar />
-        <div className="top-container">
-          <div className="left-container">
-            <button className="back"
-              onClick={() => navigate("/student-home")}>
-              <img className="back-logo" src={back} alt="Back" />
-              Back
-            </button>
-            <button
-              className="create-attendance"
-              onClick={handleCreateAttendanceClick}
-            >
-              Join Attendance
-            </button>
-            {/* BACKEND Add dynamic attendance code here */}
-            <div className="attendance-code">#attendance-Code</div>
-          </div>
-          <div className="circle">
-            <div id="date">January 1, 2024</div>
-            <div id="time">00:00 AM</div>
-          </div>
-
-          <div className="right-container">
-            <div className="class-card-wrapper">
-              <div className="class-card-Subject">ITMC 113</div>
-              <div className="class-card-Time">TTH 1:30PM - 3:00PM</div>
-              <div className="class-card-Teacher-wrapper">Kevin G. Vega</div>
-            </div>
-
-            <div className="attendance-record">
-              <div className="present-wrapper">
-                <span className="status-label">Present</span>
-                <div className="numbers">
-                  <img src={presentStudentsIcon} alt="" />
-                  <span>0</span>
-                </div>
-              </div>
-              <div className="late-wrapper">
-                <span className="status-label">Absent</span>
-                <div className="numbers">
-                  <img src={absentStudentsIcon} alt="" />
-                  <span>0</span>
-                </div>
-              </div>
-              <div className="absent-wrapper">
-                <span className="status-label">Late</span>
-                <div className="numbers">
-                  <img src={lateStudentsIcon} alt="" />
-                  <span>0</span>
-                </div>
+        <div className="main-content">
+          <StudentNavbar />
+          <div className="top-container">
+            <div className="left-container">
+              <button
+                className="back"
+                onClick={() => navigate("/student-home")}
+              >
+                <img className="back-logo" src={back} alt="Back" />
+                Back
+              </button>
+              <button
+                className="create-attendance"
+                onClick={handleCreateAttendanceClick}
+              >
+                Join Attendance
+              </button>
+              {/* BACKEND Add dynamic attendance code here */}
+              <div className="attendance-code">
+                #{currentStudentAttendance?.attendanceCode ?? ""}
               </div>
             </div>
+            <div className="circle">
+              <div id="date">{date}</div>
+              <div id="time">{time}</div>
+            </div>
+
+            <div className="right-container">
+              <div className="class-card-wrapper">
+                <div className="class-card-Subject">{classCard.className}</div>
+                <div className="class-card-Time">
+                  {classCard.scheduleDay}{" "}
+                  {convertTo12HourFormat(classCard.scheduleStart)} -{" "}
+                  {convertTo12HourFormat(classCard.scheduleEnd)}
+                </div>
+                <div className="class-card-Teacher-wrapper">
+                  {classCard.section}
+                </div>
+              </div>
+
+              <div className="attendance-record">
+                <div className="present-wrapper">
+                  <span className="status-label">Present</span>
+                  <div className="numbers">
+                    <img src={presentStudentsIcon} alt="" />
+                    <span>{presentCount}</span>
+                  </div>
+                </div>
+                <div className="late-wrapper">
+                  <span className="status-label">Absent</span>
+                  <div className="numbers">
+                    <img src={absentStudentsIcon} alt="" />
+                    <span>{absentCount}</span>
+                  </div>
+                </div>
+                <div className="absent-wrapper">
+                  <span className="status-label">Late</span>
+                  <div className="numbers">
+                    <img src={lateStudentsIcon} alt="" />
+                    <span>{lateCount}</span>
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
+
+          {/* Attendance Overlay */}
+          {isAddingAttendance && (
+            <div className="overlay">
+              <div className="attendance-form">
+                <h2>Join Attendance</h2>
+                <div className="form-group">
+                  <label>Attendance Code:</label>
+                  <input
+                    type="text"
+                    value={attendanceCode}
+                    onChange={(e) => setAttendanceCode(e.target.value)}
+                    placeholder="Enter attendance code"
+                  />
+                </div>
+                <div className="form-group">
+                  <label>IGN:</label>
+                  <input
+                    type="text"
+                    value={studentIGN}
+                    onChange={(e) => setStudentIGN(e.target.value)}
+                    placeholder="Enter attendance code"
+                  />
+                </div>
+                <div className="form-group">
+                  <label>Question of the Day:</label>
+                  {/* BACKEND Add dynamic question here */}
+                  <span>{currentAttendance?.questionOfTheDay}</span>
+                  <textarea
+                    value={answerOfTheDay}
+                    onChange={(e) => setAnswerOfTheDay(e.target.value)}
+                    placeholder="Enter answer"
+                  />
+                </div>
+                <div className="form-buttons">
+                  <button
+                    className="submit-button"
+                    onClick={handleSubmit}
+                    disabled={isSubmitting} // Disable button while submitting
+                  >
+                    {isSubmitting ? "Submitting..." : "Join Attendance"}
+                  </button>
+                  <button className="cancel-button" onClick={handleCancelClick}>
+                    Cancel
+                  </button>
+                </div>
+              </div>
+            </div>
+          )}
+
+          <table>
+            <thead>
+              <tr>
+                <th>Names</th>
+                <th>IGN</th>
+                {/* BACKEND Add dynamic question of the day here */}
+                <th>{currentAttendance?.questionOfTheDay}</th>
+              </tr>
+            </thead>
+            <tbody>
+              {studentAttendances.map((studentAttendance) => (
+                <tr key={studentAttendance._id}>
+                  <td className="student-name-wrapper">
+                    <img src={indicator(studentAttendance)} alt="" />
+                    {studentAttendance.userId.username}
+                  </td>
+                  <td>{studentAttendance.studentIGN}</td>
+                  <td>{studentAttendance.answerOfTheDay}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
         </div>
-
-        {/* Attendance Overlay */}
-        {isAddingAttendance && (
-          <div className="overlay">
-            <div className="attendance-form">
-              <h2>Join Attendance</h2>
-              <div className="form-group">
-                <label>Attendance Code:</label>
-                <input
-                  type="text"
-                  value={attendanceCode}
-                  onChange={(e) => setAttendanceCode(e.target.value)}
-                  placeholder="Enter attendance code"
-                />
-              </div>
-              <div className="form-group">
-                <label>Question of the Day:</label>
-                {/* BACKEND Add dynamic question here */}
-                <span>How are you?</span>
-                <textarea
-                  value={questionOfTheDay}
-                  onChange={(e) => setQuestionOfTheDay(e.target.value)}
-                  placeholder="Enter question of the day"
-                />
-              </div>
-              <div className="form-buttons">
-                <button
-                  className="submit-button"
-                  onClick={handleSubmit}
-                  disabled={isSubmitting} // Disable button while submitting
-                >
-                  {isSubmitting ? "Submitting..." : "Join Attendance"}
-                </button>
-                <button className="cancel-button" onClick={handleCancelClick}>
-                  Cancel
-                </button>
-              </div>
-            </div>
-          </div>
-        )}
-
-        <table>
-          <thead>
-            <tr>
-              <th>Names</th>
-              <th>IGN</th>
-              {/* BACKEND Add dynamic question of the day here */}
-              <th>How are you?</th>
-            </tr>
-          </thead>
-          <tbody>
-            {/* BACKEND Add dynamic content here - studentsd */}
-            <tr>
-              <td className="student-name-wrapper">
-                <img src={presentCircle} alt="" />
-                Karl Axcel E. Lumabi
-              </td>
-              <td>Kaash</td>
-              <td>Goods</td>
-            </tr>
-            
-          </tbody>
-        </table>
       </div>
-    </div>
+    )
   );
 };
 

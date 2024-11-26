@@ -63,28 +63,25 @@ a {
   cursor: pointer;
 }
 
+.buttons :hover {
+  background-color: #cccccc25;
+}
 
 .teacher {
   background-color: #3b5998;
-  transition: all 0.2s ease;
   color: white;
 }
 
-.teacher:hover {
-  background-color: #4173e0;
-  transition: all 0.2s ease;
+.teacher :hover {
+  background-color: #cccccc15;
 }
 
-.students {
-  background-color: #fff;
+.student {
+  background-color: white;
   color: #091241;
-  transition: all 0.2s ease;
+  margin-top: 20px;
+}
 
-}
-.students:hover {
-  color: #4173e0;
-  transition: all 0.2s ease;
-}
 footer a {
   margin-right: 10px;
   color: #4e93ff;

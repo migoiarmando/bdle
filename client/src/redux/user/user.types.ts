@@ -1,13 +1,5 @@
-import { USER_ROLES } from "../../constants/UserRoles";
+import { UserType } from "../../types/user.types";
 
 export type initialUserStateType = {
-  readonly currentUser: currentUserType | null;
-};
-
-export type currentUserType = {
-  _id: string;
-  username: string;
-  email: string;
-  photoURL: string | null;
-  role: USER_ROLES;
+  readonly currentUser: UserType | null;
 };

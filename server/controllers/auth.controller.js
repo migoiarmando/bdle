@@ -36,6 +36,11 @@ export const googleLogin = async (req, res, next) => {
       /** Login */
       generateToken(user._id, res);
 
+      if (role !== user.role)
+        return res.status(500).json({
+          message: `${user.role} should not login on ${role} Login page.`,
+        });
+
       res.status(200).json({
         _id: user._id,
         username: user.username,
@@ -52,7 +57,7 @@ export const googleLogin = async (req, res, next) => {
 
 export const login = async (req, res, next) => {
   try {
-    const { email, password } = req.body;
+    const { email, password, role } = req.body;
 
     const user = await User.findOne({ email });
 
@@ -63,6 +68,11 @@ export const login = async (req, res, next) => {
 
     if (!user || !isPasswordCorrect)
       return res.status(400).json({ message: "Invalid email / password." });
+
+    if (role !== user.role)
+      return res.status(500).json({
+        message: `${user.role} should not login on ${role} Login page.`,
+      });
 
     generateToken(user._id, res);
 

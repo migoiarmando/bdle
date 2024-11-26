@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "../../styles/HomeManager.css";
 
 // components
@@ -6,23 +6,30 @@ import ProfessorNavbar from "../../components/ProfessorNavbar";
 import SubjectComponent from "../../components/SubjectComponent";
 //import { useNavigate } from "react-router-dom";
 import Sidebar from "../../components/Sidebar";
+import axiosClient from "../../utils/axios.utils";
+import { toastError, toastSuccess } from "../../utils/toastEmitter";
+import { useSelector } from "react-redux";
+import { selectCurrentUser } from "../../redux/user/user.selector";
+import { ClassCardType } from "../../types/class.type";
 
 const HomeManager: React.FC = () => {
-  //const navigate = useNavigate();
+  const currentUser = useSelector(selectCurrentUser);
 
   const [isOverlayActive, setIsOverlayActive] = useState(false);
   const [generatedCode, setGeneratedCode] = useState("");
-  const [classCards, setClassCards] = useState<
-    {
-      className: string;
-      professor: string;
-      scheduleDay: string;
-      scheduleStart: string;
-      scheduleEnd: string;
-      theme: string;
-      classCode: string;
-    }[]
-  >([]);
+  const [classCards, setClassCards] = useState<ClassCardType[]>([]);
+
+  useEffect(() => {
+    axiosClient
+      .get(`/classes/${currentUser?._id}`)
+      .then(({ data }) => {
+        setClassCards(data);
+      })
+      .catch(({ response: { data } }) => {
+        toastError(data.message);
+      })
+      .finally(() => {});
+  }, [setClassCards, currentUser]);
 
   const handleAddClassClick = () => {
     setIsOverlayActive(true);
@@ -37,7 +44,7 @@ const HomeManager: React.FC = () => {
     e.preventDefault();
     const formData = new FormData(e.target as HTMLFormElement);
     const className = formData.get("className") as string;
-    const professor = formData.get("professor") as string;
+    const section = formData.get("section") as string;
     const scheduleDay = formData.get("scheduleDay") as string;
     const scheduleStart = formData.get("scheduleStart") as string;
     const scheduleEnd = formData.get("scheduleEnd") as string;
@@ -45,7 +52,7 @@ const HomeManager: React.FC = () => {
 
     const newClassCard = {
       className,
-      professor,
+      section,
       scheduleDay,
       scheduleStart,
       scheduleEnd,
@@ -53,7 +60,17 @@ const HomeManager: React.FC = () => {
       classCode: generatedCode,
     };
 
-    setClassCards((prev) => [...prev, newClassCard]);
+    axiosClient
+      .post("/class", newClassCard)
+      .then(({ data }) => {
+        setClassCards([...classCards, data.class]);
+        toastSuccess(data.message);
+      })
+      .catch(({ response: { data } }) => {
+        toastError(data.message);
+      })
+      .finally(() => {});
+
     setIsOverlayActive(false);
     (e.target as HTMLFormElement).reset();
   };
@@ -75,7 +92,8 @@ const HomeManager: React.FC = () => {
 
   const generateUniqueClassCode = (): string => {
     // Generate a random alphanumeric string (6 characters long)
-    const characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+    const characters =
+      "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
     let code = "";
     for (let i = 0; i < 6; i++) {
       code += characters.charAt(Math.floor(Math.random() * characters.length));
@@ -113,20 +131,25 @@ const HomeManager: React.FC = () => {
               <label htmlFor="className">Class name</label>
               <input type="text" name="className" id="className" required />
 
-              <label htmlFor="professor">Professor</label>
-              <input type="text" name="professor" id="professor" required />
+              <label htmlFor="section">Section</label>
+              <input type="text" name="section" id="section" required />
 
               <label htmlFor="scheduleDay">Class Sched (Day)</label>
               <input type="text" name="scheduleDay" id="scheduleDay" required />
 
               <label htmlFor="scheduleStart">Start Time</label>
-              <input type="time" name="scheduleStart" id="scheduleStart" required />
+              <input
+                type="time"
+                name="scheduleStart"
+                id="scheduleStart"
+                required
+              />
 
               <label htmlFor="scheduleEnd">End Time</label>
               <input type="time" name="scheduleEnd" id="scheduleEnd" required />
 
               <label htmlFor="classCode">Class Code</label>
-              
+
               <input
                 type="text"
                 name="classCode"
@@ -156,10 +179,20 @@ const HomeManager: React.FC = () => {
                 <input type="radio" id="grayTheme" name="theme" value="gray" />
                 <label htmlFor="grayTheme" className="gray"></label>
 
-                <input type="radio" id="blackTheme" name="theme" value="black" />
+                <input
+                  type="radio"
+                  id="blackTheme"
+                  name="theme"
+                  value="black"
+                />
                 <label htmlFor="blackTheme" className="black"></label>
 
-                <input type="radio" id="purpleTheme" name="theme" value="purple" />
+                <input
+                  type="radio"
+                  id="purpleTheme"
+                  name="theme"
+                  value="purple"
+                />
                 <label htmlFor="purpleTheme" className="purple"></label>
               </div>
 

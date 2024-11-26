@@ -1,9 +1,11 @@
 import { Bounce, toast } from "react-toastify";
 
+const autoClose = 2000; // 2000 milliseconds
+
 export const toastInfo = (message: string) =>
   toast.info(message, {
     position: "top-right",
-    autoClose: 3000,
+    autoClose,
     hideProgressBar: false,
     closeOnClick: true,
     pauseOnHover: true,
@@ -16,7 +18,7 @@ export const toastInfo = (message: string) =>
 export const toastWarning = (message: string) =>
   toast.warn(message, {
     position: "top-right",
-    autoClose: 3000,
+    autoClose,
     hideProgressBar: false,
     closeOnClick: true,
     pauseOnHover: true,
@@ -29,7 +31,7 @@ export const toastWarning = (message: string) =>
 export const toastSuccess = (message: string) =>
   toast.success(message, {
     position: "top-right",
-    autoClose: 3000,
+    autoClose,
     hideProgressBar: false,
     closeOnClick: true,
     pauseOnHover: true,
@@ -42,7 +44,7 @@ export const toastSuccess = (message: string) =>
 export const toastError = (message: string) =>
   toast.error(message, {
     position: "top-right",
-    autoClose: 3000,
+    autoClose,
     hideProgressBar: false,
     closeOnClick: true,
     pauseOnHover: true,

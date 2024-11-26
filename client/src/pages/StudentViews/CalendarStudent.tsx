@@ -1,31 +1,122 @@
-import React, { useState } from 'react';
-import '../../styles/Calendar.css';
+import React, { useEffect, useState } from "react";
+import "../../styles/Calendar.css";
 
-import StudentSidebar from '../../components/StudentSidebar';
-import StudentNavbar from '../../components/StudentNavbar';
+import Sidebar from "../../components/Sidebar";
+import ProfessorNavbar from "../../components/ProfessorNavbar";
 
 import DownLine from "../../assets/down-line.svg";
+import { ClassCardType } from "../../types/class.type";
+import axiosClient from "../../utils/axios.utils";
+import { toastError } from "../../utils/toastEmitter";
+import { AttendanceType } from "../../types/attendance.type";
 
-const Calendar = () => {
+const CalendarStudent = () => {
+  const [selectedClass, setSelectedClass] = useState("");
+  const [selectedClassId, setSelectedClassId] = useState("");
+
+  /** Fetch Classes */
+  const [classCards, setClassCards] = useState<ClassCardType[]>([]);
+  useEffect(() => {
+    axiosClient
+      .get("/student/class")
+      .then(({ data }) => {
+        setClassCards(data.classes);
+        if (data.classes.length > 0) {
+          setSelectedClass(data.classes[0].className);
+          setSelectedClassId(data.classes[0]._id);
+        }
+      })
+      .catch(({ response: { data } }) => {
+        toastError(data.message);
+      })
+      .finally(() => {});
+  }, [setClassCards]);
+
+  /** Fetch attendances */
+  const [attendances, setAttendances] = useState<AttendanceType[] | []>([]);
+  useEffect(() => {
+    if (!selectedClassId) return;
+    axiosClient
+      .get(`/student/attendances/${selectedClassId}`)
+      .then(({ data }) => {
+        setAttendances(data);
+      })
+      .catch(({ response: { data } }) => {
+        toastError(data.message);
+      })
+      .finally(() => {});
+  }, [selectedClassId]);
+
+  /** Select Class */
+  const handleItemClick = (item: React.SetStateAction<string>) => {
+    setSelectedClassId(item);
+    const selectedClass = classCards?.find(
+      (classItem) => classItem._id === item
+    );
+    setSelectedClass(selectedClass!.className);
+    setIsDropdownOpen(false);
+  };
+  const toggleDropdown = () => {
+    setIsDropdownOpen(!isDropdownOpen);
+  };
+
+  /** Calendar */
   const monthNames = [
-    'January', 'February', 'March', 'April', 'May', 'June',
-    'July', 'August', 'September', 'October', 'November', 'December'
+    "January",
+    "February",
+    "March",
+    "April",
+    "May",
+    "June",
+    "July",
+    "August",
+    "September",
+    "October",
+    "November",
+    "December",
   ];
-
   const [currentDate, setCurrentDate] = useState(new Date());
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
-  const [selectedClass, setSelectedClass] = useState("ITMC211"); //Add dynamic class here
 
   const currentMonth = currentDate.getMonth();
   const currentYear = currentDate.getFullYear();
 
   const today = new Date();
 
-  const getDaysInMonth = (month: number, year: number) => new Date(year, month + 1, 0).getDate();
+  const getDaysInMonth = (month: number, year: number) =>
+    new Date(year, month + 1, 0).getDate();
 
   const updateMonth = (offset: number) => {
     const newDate = new Date(currentYear, currentMonth + offset);
     setCurrentDate(newDate);
+  };
+
+  const displayAttendance = (day: number) => {
+    const _currentMonth = currentDate.getMonth();
+    const _currentYear = currentDate.getFullYear();
+
+    if (attendances.length === 0) return day;
+    const attendancesToDisplay = attendances?.filter(
+      (attendance) =>
+        new Date(attendance.createdAt).getDate() == day &&
+        new Date(attendance.createdAt).getMonth() === _currentMonth &&
+        new Date(attendance.createdAt).getFullYear() === _currentYear
+    );
+
+    if (attendancesToDisplay.length > 0) {
+      return (
+        <>
+          <div>{day}</div>
+          {attendancesToDisplay.map((att) => (
+            <a key={att._id} href={`/specific-date-student/${att._id}`}>
+              <strong>{att.attendanceCode}</strong>
+            </a>
+          ))}
+        </>
+      );
+    }
+
+    return day;
   };
 
   const renderCalendarDays = () => {
@@ -44,11 +135,8 @@ const Calendar = () => {
         today.getFullYear() === currentYear;
 
       return (
-        <div
-          key={`day-${index}`}
-          className={`day ${isToday ? 'today' : ''}`}
-        >
-          {day}
+        <div key={`day-${index}`} className={`day ${isToday ? "today" : ""}`}>
+          {displayAttendance(day)}
         </div>
       );
     });
@@ -56,20 +144,12 @@ const Calendar = () => {
     return [...blankDays, ...days];
   };
 
-  const toggleDropdown = () => {
-    setIsDropdownOpen(!isDropdownOpen);
-  };
-
-  const handleItemClick = (item: React.SetStateAction<string>) => {
-    setSelectedClass(item);
-    setIsDropdownOpen(false); // Close dropdown after selection
-  };
   return (
     <div className="nav-container">
-      <StudentSidebar />
+      <Sidebar />
 
       <div className="main-container">
-        <StudentNavbar />
+        <ProfessorNavbar />
 
         <div className="main-calendar">
           <div className="date-container">
@@ -77,27 +157,22 @@ const Calendar = () => {
               <h2>{`${monthNames[currentMonth]}, ${currentYear}`}</h2>
             </div>
             <div className="date-navigation">
-              
               {/* Dropdown Container */}
               <div className="dropdown-container" onClick={toggleDropdown}>
                 <div className="dropdown-header">
                   <span>{selectedClass}</span> {/* Display selected item */}
-                  <img
-                    src={DownLine}
-                    alt="Toggle Dropdown"
-
-                  />
+                  <img src={DownLine} alt="Toggle Dropdown" />
                 </div>
 
                 {isDropdownOpen && (
                   <div className="dropdown-content">
-                    {["ITMC211", "ITMC212", "ITMC213"].map((item) => (
+                    {classCards.map((item) => (
                       <div
-                        key={item}
+                        key={item._id}
                         className="dropdown-item"
-                        onClick={() => handleItemClick(item)}
+                        onClick={() => handleItemClick(item._id)}
                       >
-                        {item}
+                        {item.className}
                       </div>
                     ))}
                   </div>
@@ -111,8 +186,10 @@ const Calendar = () => {
 
           <div className="calendar">
             {/* Day Headers */}
-            {['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'].map((day) => (
-              <div key={day} className="day-header">{day}</div>
+            {["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"].map((day) => (
+              <div key={day} className="day-header">
+                {day}
+              </div>
             ))}
             {/* Days */}
             {renderCalendarDays()}
@@ -123,4 +200,4 @@ const Calendar = () => {
   );
 };
 
-export default Calendar;
+export default CalendarStudent;
