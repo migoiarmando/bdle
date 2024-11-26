@@ -4,6 +4,7 @@ import "../../styles/HomeManager.css";
 // components
 import ProfessorNavbar from "../../components/ProfessorNavbar";
 import SubjectComponent from "../../components/SubjectComponent";
+//import { useNavigate } from "react-router-dom";
 import Sidebar from "../../components/Sidebar";
 import axiosClient from "../../utils/axios.utils";
 import { toastError, toastSuccess } from "../../utils/toastEmitter";
@@ -17,7 +18,6 @@ const HomeManager: React.FC = () => {
   const [isOverlayActive, setIsOverlayActive] = useState(false);
   const [generatedCode, setGeneratedCode] = useState("");
   const [classCards, setClassCards] = useState<ClassCardType[]>([]);
-  const [selectedDays, setSelectedDays] = useState<string[]>([]);
 
   useEffect(() => {
     axiosClient
@@ -27,27 +27,17 @@ const HomeManager: React.FC = () => {
       })
       .catch(({ response: { data } }) => {
         toastError(data.message);
-      });
-  }, [currentUser]);
+      })
+      .finally(() => {});
+  }, [setClassCards, currentUser]);
 
   const handleAddClassClick = () => {
     setIsOverlayActive(true);
-    setGeneratedCode(generateUniqueClassCode());
+    setGeneratedCode(generateUniqueClassCode()); 
   };
 
   const handleCancelClick = () => {
     setIsOverlayActive(false);
-    setSelectedDays([]);
-  };
-
-  const handleDayChange = (day: string) => {
-    setSelectedDays((prev) =>
-      prev.includes(day)
-        ? prev.filter((d) => d !== day)
-        : prev.length < 3
-        ? [...prev, day]
-        : prev
-    );
   };
 
   const handleFormSubmit = (e: React.FormEvent) => {
@@ -55,19 +45,15 @@ const HomeManager: React.FC = () => {
     const formData = new FormData(e.target as HTMLFormElement);
     const className = formData.get("className") as string;
     const section = formData.get("section") as string;
+    const scheduleDay = formData.get("scheduleDay") as string;
     const scheduleStart = formData.get("scheduleStart") as string;
     const scheduleEnd = formData.get("scheduleEnd") as string;
     const selectedTheme = formData.get("theme") as string;
 
-    if (selectedDays.length === 0) {
-      toastError("Please select at least one day for the schedule.");
-      return;
-    }
-
     const newClassCard = {
       className,
       section,
-      scheduleDay: selectedDays.join(", "),
+      scheduleDay,
       scheduleStart,
       scheduleEnd,
       theme: getThemeColor(selectedTheme),
@@ -82,10 +68,10 @@ const HomeManager: React.FC = () => {
       })
       .catch(({ response: { data } }) => {
         toastError(data.message);
-      });
+      })
+      .finally(() => {});
 
     setIsOverlayActive(false);
-    setSelectedDays([]);
     (e.target as HTMLFormElement).reset();
   };
 
@@ -113,6 +99,7 @@ const HomeManager: React.FC = () => {
     }
     return code;
   };
+
   return (
     <div className="nav-container">
       <Sidebar />
