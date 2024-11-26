@@ -5,6 +5,7 @@ import { convertTo12HourFormat } from "../utils/timeFormatter";
 import { useSelector } from "react-redux";
 import { selectCurrentUser } from "../redux/user/user.selector";
 import { USER_ROLES } from "../constants/UserRoles";
+import './styles/subjectComponent.css'
 
 const SubjectComponent: React.FC<{ classCards: ClassCardType[] }> = ({
   classCards,
@@ -26,7 +27,7 @@ const SubjectComponent: React.FC<{ classCards: ClassCardType[] }> = ({
           // Add backend here - navigate to specific class overview (must be different from prof and)
           onClick={() => navigate(`${classOverviewUrl}/${classCard._id}`)}
         >
-          <div className="class-card-Subject">{classCard.className}</div>
+          <h1 className="class-card-Subjects">{classCard.className}</h1>
           <div className="class-card-Time">
             {classCard.scheduleDay} -{" "}
             {convertTo12HourFormat(classCard.scheduleStart)} -{" "}

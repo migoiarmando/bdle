@@ -31,9 +31,9 @@ const HomeManager: React.FC = () => {
     setIsOverlayActive(true);
   };
 
-  // const handleCancelClick = () => {
-  //  setIsOverlayActive(false);
-  // };
+  const handleCancelClick = () => {
+   setIsOverlayActive(false);
+  };
 
   const handleFormSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -124,8 +124,16 @@ const HomeManager: React.FC = () => {
                 />
                 <label htmlFor="purpleTheme" className="purple"></label>
               </div>
+              
               <button type="submit" className="create-btn">
                 Join
+              </button>
+              <button
+                type="button"
+                className="cancel-btns"
+                onClick={handleCancelClick}
+              >
+                Cancel
               </button>
             </form>
           </div>

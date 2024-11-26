@@ -16,11 +16,14 @@
   transition: all 0.3s;
 }
 
-.class-card-Subject {
+.class-card h1 {
+  font-size: 2.25rem;
+  font-weight: 500;
+
+}
+.class-card-Subjects {
   padding: 10px;
-  font-weight: light;
-  font-size: 3rem;
-  margin-left: 15px;
+  max-width: 400px;
   margin-top: 15px;
 }
 

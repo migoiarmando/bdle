@@ -165,6 +165,18 @@ hr{
     background-color: #a2a2a2;
     transition: all 0.3s;
 }
+
+
+.cancel-btns {
+    background-color: #ccc;
+    margin-left: 0.5rem;
+    transition: all 0.3s;
+
+}
+.cancel-btns:hover{
+    background-color: #a2a2a2;
+    transition: all 0.3s;
+}
 .create-btn {
     background-color: #091241;
     color: white;
@@ -221,4 +233,34 @@ hr{
 .classCode-wrappper{
     display: flex;
     flex-direction: column;
+}
+
+.day-picker {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 16px;
+}
+
+.day-circle {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background-color: #f0f0f0;
+  border: 1px solid #ccc;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  font-size: 14px;
+  transition: 0.3s ease;
+}
+
+.day-circle.selected {
+  background-color: #2e4c97;
+  color: white;
+  border-color: #2e4c97;
+}
+
+.day-circle:hover {
+  background-color: #e0e0e0;
 }
