@@ -8,7 +8,7 @@ const NotFound: React.FC = () => {
       <img src={notFoundImg} alt="" />
       <h3>Page not found</h3>
       <span className="notfound-content">
-        We are working hard to get it ready for you. Stay tuned for updates!
+        We're working hard to get it ready for you. Stay tuned for updates!
       </span>
     </div>
   );
