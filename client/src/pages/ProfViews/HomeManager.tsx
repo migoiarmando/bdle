@@ -40,16 +40,6 @@ const HomeManager: React.FC = () => {
     setSelectedDays([]);
   };
 
-  const handleDayChange = (day: string) => {
-    setSelectedDays((prev) =>
-      prev.includes(day)
-        ? prev.filter((d) => d !== day)
-        : prev.length < 3
-        ? [...prev, day]
-        : prev
-    );
-  };
-
   const handleFormSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     const formData = new FormData(e.target as HTMLFormElement);
@@ -58,11 +48,6 @@ const HomeManager: React.FC = () => {
     const scheduleStart = formData.get("scheduleStart") as string;
     const scheduleEnd = formData.get("scheduleEnd") as string;
     const selectedTheme = formData.get("theme") as string;
-
-    if (selectedDays.length === 0) {
-      toastError("Please select at least one day for the schedule.");
-      return;
-    }
 
     const newClassCard = {
       className,
