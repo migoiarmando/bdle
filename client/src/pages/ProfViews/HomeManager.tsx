@@ -33,7 +33,7 @@ const HomeManager: React.FC = () => {
 
   const handleAddClassClick = () => {
     setIsOverlayActive(true);
-    setGeneratedCode(generateUniqueClassCode()); 
+    setGeneratedCode(generateUniqueClassCode());
   };
 
   const handleCancelClick = () => {
