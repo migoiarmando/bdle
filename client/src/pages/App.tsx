@@ -27,9 +27,9 @@ function App() {
             Sign In as Student
           </button>
         </div>
-        <p onClick={() => navigate("/regiser")}>
+        <p onClick={() => navigate("/register")}>
           Don't have an account? <a href="#"> Sign up</a>
-          </p>
+        </p>
       </div>
       <Footer />
     </div>
