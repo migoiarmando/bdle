@@ -55,3 +55,4 @@
 .nav-items a:hover::before {
     height: 100%; /* Animate the height to full on hover */
 }
+

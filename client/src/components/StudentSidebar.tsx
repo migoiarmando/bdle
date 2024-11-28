@@ -19,6 +19,7 @@ const StudentSidebar: React.FC = () => {
           <a onClick={() => navigate("/student-home")}>Home</a>
           <a onClick={() => navigate("/calendar-student")}>Calendar</a>
           <a onClick={() => navigate("/404")}>Settings</a>
+          <a onClick={() => navigate("/about-us")}>About</a>
           <a onClick={handleLogout}>Log out</a>
         </ul>
       </div>

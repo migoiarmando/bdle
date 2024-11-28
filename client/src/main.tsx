@@ -7,8 +7,11 @@ import StudentForm from "./pages/StudentForm.tsx";
 
 // Pages
 import LoginPage from "./pages/LoginPage.tsx";
+import RegistrationPage from "./pages/RegistrationPage.tsx";
 import Continue from "./pages/Continue.tsx";
 import NotFound from "./pages/NotFound.tsx";
+import Settings from "./pages/Settings.tsx";
+import AboutBDLE from "./pages/AboutBDLE.tsx";
 
 // Prof Pages
 import ManagerHomepage from "./pages/ProfViews/HomeManager.tsx";
@@ -55,6 +58,14 @@ createRoot(document.getElementById("root")!).render(
             }
           />
           <Route
+            path="/register"
+            element={
+              <GuestRoute>
+                <RegistrationPage />
+              </GuestRoute>
+            }
+          />
+          <Route
             path="/login/:role"
             element={
               <GuestRoute>
@@ -70,7 +81,18 @@ createRoot(document.getElementById("root")!).render(
               </GuestRoute>
             }
           />
+          
+          {/* here ko muna to */}
+          <Route
+            path="/settings"
+            element={
+              <GuestRoute>
+                <Settings />
+              </GuestRoute>
+            }
+          />
 
+          
           {/* Student Routes */}
           <Route
             path="/student-home"
@@ -106,6 +128,14 @@ createRoot(document.getElementById("root")!).render(
             }
           />
 
+          <Route
+            path="/about-us"
+            element={
+              <StudentRoute>
+                <AboutBDLE />
+              </StudentRoute>
+            }
+          />  
           {/* Teacher's Routes */}
           <Route
             path="/manager-home"
@@ -149,7 +179,14 @@ createRoot(document.getElementById("root")!).render(
               </TeacherRoute>
             }
           />
-
+          <Route
+            path="/about-us"
+            element={
+              <TeacherRoute>
+                <AboutBDLE />
+              </TeacherRoute>
+            }
+          />
           {/* 404 */}
           <Route path="*" element={<NotFound />} />
         </Routes>

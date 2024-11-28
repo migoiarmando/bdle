@@ -2,15 +2,19 @@ import React, { useEffect, useState } from "react";
 import "../../styles/HomeManager.css";
 import SubjectComponent from "../../components/SubjectComponent";
 //import { useNavigate } from "react-router-dom";
-import StudentNavbar from "../../components/StudentNavbar";
+import userImage from "../../assets/user.svg";
+
 import StudentSidebar from "../../components/StudentSidebar";
 import { StudentClass } from "../../types/student-class.types";
 import axiosClient from "../../utils/axios.utils";
 import { toastError, toastSuccess } from "../../utils/toastEmitter";
+import { selectCurrentUser } from "../../redux/user/user.selector";
+import { useSelector } from "react-redux";
 
 const HomeManager: React.FC = () => {
   //const navigate = useNavigate();
-
+  const currentUser = useSelector(selectCurrentUser);
+  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   /** Fetch Student Class */
   const [studentClass, setStudentClass] = useState<StudentClass | null>(null);
   useEffect(() => {
@@ -35,6 +39,26 @@ const HomeManager: React.FC = () => {
    setIsOverlayActive(false);
   };
 
+  const toggleDropdown = () => {
+    setIsDropdownOpen(!isDropdownOpen);
+  };
+  
+  const handleOptionClick = (option: string) => {
+    setIsDropdownOpen(false);
+    switch (option) {
+      case "Classes":
+        // naviagate to classes
+        break;
+      case "Settings":
+        // Navigate to Settings page
+        break;
+      case "Logout":
+        // Logout
+        break;
+      default:
+        break;
+    }
+  };
   const handleFormSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     const formData = new FormData(e.target as HTMLFormElement);
@@ -60,7 +84,45 @@ const HomeManager: React.FC = () => {
 
       <div className="main-container">
         {/* Nav */}
-        <StudentNavbar />
+        <div className="nav-wrapper">
+      <div className="welcome-wrapper">
+        {/* add dynamic name and photo here */}
+        <span>
+          Welcome,&nbsp;
+          <strong>{currentUser?.username}</strong>
+        </span>
+        <div className="user-img-container" onClick={toggleDropdown}>
+              <img
+                className="user-img"
+                src={currentUser?.photoURL ?? userImage}
+                alt="User"
+              />
+              {isDropdownOpen && (
+                <div className="dropdown-menu show">
+                  <div
+                    className="dropdown-item"
+                    onClick={() => handleOptionClick("Classes")}
+                  >
+                    Classes
+                  </div>
+                  <div
+                    className="dropdown-item"
+                    onClick={() => handleOptionClick("Settings")}
+                  >
+                    Settings
+                  </div>
+                  <div
+                    className="dropdown-item"
+                    onClick={() => handleOptionClick("Logout")}
+                  >
+                    Logout
+                  </div>
+                </div>
+              )}
+            </div>
+      </div>
+      <hr className="nav-hr" />
+    </div>
 
         <div className="buttons">
           <button id="addClassBtn" onClick={handleAddClassClick}>

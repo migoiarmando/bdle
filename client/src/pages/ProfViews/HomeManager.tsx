@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
 import "../../styles/HomeManager.css";
+import userImage from "../../assets/user.svg";
 
 // components
-import ProfessorNavbar from "../../components/ProfessorNavbar";
 import SubjectComponent from "../../components/SubjectComponent";
 //import { useNavigate } from "react-router-dom";
 import Sidebar from "../../components/Sidebar";
@@ -18,6 +18,7 @@ const HomeManager: React.FC = () => {
   const [isOverlayActive, setIsOverlayActive] = useState(false);
   const [generatedCode, setGeneratedCode] = useState("");
   const [classCards, setClassCards] = useState<ClassCardType[]>([]);
+  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
 
   useEffect(() => {
     axiosClient
@@ -40,6 +41,27 @@ const HomeManager: React.FC = () => {
     setIsOverlayActive(false);
   };
 
+  const toggleDropdown = () => {
+    setIsDropdownOpen(!isDropdownOpen);
+  };
+  
+  const handleOptionClick = (option: string) => {
+    setIsDropdownOpen(false);
+    switch (option) {
+      case "Classes":
+        // navigate to classes
+        break;
+      case "Settings":
+        // navigate to settings
+        break;
+      case "Logout":
+        // Logout
+        break;
+      default:
+        break;
+    }
+  };
+  
   const handleFormSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     const formData = new FormData(e.target as HTMLFormElement);
@@ -106,8 +128,46 @@ const HomeManager: React.FC = () => {
 
       <div className="main-container">
         {/* Nav */}
-        <ProfessorNavbar />
 
+        <div className="nav-wrapper">
+          <div className="welcome-wrapper">
+            <span>
+              Welcome,&nbsp;
+              <strong>{currentUser?.username}</strong>
+            </span>
+            <div className="user-img-container" onClick={toggleDropdown}>
+              <img
+                className="user-img"
+                src={currentUser?.photoURL ?? userImage}
+                alt="User"
+              />
+              {isDropdownOpen && (
+                <div className="dropdown-menu show">
+                  <div
+                    className="dropdown-item"
+                    onClick={() => handleOptionClick("Classes")}
+                  >
+                    Classes
+                  </div>
+                  <div
+                    className="dropdown-item"
+                    onClick={() => handleOptionClick("Settings")}
+                  >
+                    Settings
+                  </div>
+                  <div
+                    className="dropdown-item"
+                    onClick={() => handleOptionClick("Logout")}
+                  >
+                    Logout
+                  </div>
+                </div>
+              )}
+            </div>
+          </div>
+          <hr className="nav-hr" />
+        </div>
+        
         <div className="buttons">
           <button id="addClassBtn" onClick={handleAddClassClick}>
             Add Class +
