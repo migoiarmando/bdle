@@ -95,6 +95,7 @@ const Settings: React.FC = () => {
               <input
                 type="text"
                 placeholder="Enter your username"
+                name="username"
                 style={{ color: "inherit" }}
                 value={formData.username}
                 onChange={handleChange}
