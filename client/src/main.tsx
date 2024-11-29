@@ -81,21 +81,24 @@ createRoot(document.getElementById("root")!).render(
               </GuestRoute>
             }
           />
+          
+          {/* here ko muna to */}
+          <Route
+            path="/settings"
+            element={
+              <GuestRoute>
+                <Settings />
+              </GuestRoute>
+            }
+          />
 
+          
           {/* Student Routes */}
           <Route
             path="/student-home"
             element={
               <StudentRoute>
                 <StudentHomepage />
-              </StudentRoute>
-            }
-          />
-          <Route
-            path="/settings-student"
-            element={
-              <StudentRoute>
-                <Settings />
               </StudentRoute>
             }
           />
@@ -132,7 +135,7 @@ createRoot(document.getElementById("root")!).render(
                 <AboutBDLE />
               </StudentRoute>
             }
-          />
+          />  
           {/* Teacher's Routes */}
           <Route
             path="/manager-home"
@@ -164,14 +167,6 @@ createRoot(document.getElementById("root")!).render(
             element={
               <TeacherRoute>
                 <SpecificDateManager />
-              </TeacherRoute>
-            }
-          />
-          <Route
-            path="/settings-manager"
-            element={
-              <TeacherRoute>
-                <Settings />
               </TeacherRoute>
             }
           />
