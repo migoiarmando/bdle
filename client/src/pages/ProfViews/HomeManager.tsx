@@ -11,7 +11,6 @@ import { toastError, toastSuccess } from "../../utils/toastEmitter";
 import { useSelector } from "react-redux";
 import { selectCurrentUser } from "../../redux/user/user.selector";
 import { ClassCardType } from "../../types/class.type";
-import NavbarDropdown from "../../components/NavbarDropdown";
 
 const HomeManager: React.FC = () => {
   const currentUser = useSelector(selectCurrentUser);
@@ -45,7 +44,24 @@ const HomeManager: React.FC = () => {
   const toggleDropdown = () => {
     setIsDropdownOpen(!isDropdownOpen);
   };
-
+  
+  const handleOptionClick = (option: string) => {
+    setIsDropdownOpen(false);
+    switch (option) {
+      case "Classes":
+        // navigate to classes
+        break;
+      case "Settings":
+        // navigate to settings
+        break;
+      case "Logout":
+        // Logout
+        break;
+      default:
+        break;
+    }
+  };
+  
   const handleFormSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     const formData = new FormData(e.target as HTMLFormElement);
@@ -125,15 +141,33 @@ const HomeManager: React.FC = () => {
                 src={currentUser?.photoURL ?? userImage}
                 alt="User"
               />
-              <NavbarDropdown
-                role={currentUser!.role}
-                isDropdownOpen={isDropdownOpen}
-              />
+              {isDropdownOpen && (
+                <div className="dropdown-menu show">
+                  <div
+                    className="dropdown-item"
+                    onClick={() => handleOptionClick("Classes")}
+                  >
+                    Classes
+                  </div>
+                  <div
+                    className="dropdown-item"
+                    onClick={() => handleOptionClick("Settings")}
+                  >
+                    Settings
+                  </div>
+                  <div
+                    className="dropdown-item"
+                    onClick={() => handleOptionClick("Logout")}
+                  >
+                    Logout
+                  </div>
+                </div>
+              )}
             </div>
           </div>
           <hr className="nav-hr" />
         </div>
-
+        
         <div className="buttons">
           <button id="addClassBtn" onClick={handleAddClassClick}>
             Add Class +
