@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import "../../styles/HomeManager.css";
-import userImage from "../../assets/user.svg";
 
 // components
 import SubjectComponent from "../../components/SubjectComponent";
@@ -11,7 +10,7 @@ import { toastError, toastSuccess } from "../../utils/toastEmitter";
 import { useSelector } from "react-redux";
 import { selectCurrentUser } from "../../redux/user/user.selector";
 import { ClassCardType } from "../../types/class.type";
-import NavbarDropdown from "../../components/NavbarDropdown";
+import Navbar from "../../components/Navbar";
 
 const HomeManager: React.FC = () => {
   const currentUser = useSelector(selectCurrentUser);
@@ -19,7 +18,6 @@ const HomeManager: React.FC = () => {
   const [isOverlayActive, setIsOverlayActive] = useState(false);
   const [generatedCode, setGeneratedCode] = useState("");
   const [classCards, setClassCards] = useState<ClassCardType[]>([]);
-  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
 
   useEffect(() => {
     axiosClient
@@ -40,10 +38,6 @@ const HomeManager: React.FC = () => {
 
   const handleCancelClick = () => {
     setIsOverlayActive(false);
-  };
-
-  const toggleDropdown = () => {
-    setIsDropdownOpen(!isDropdownOpen);
   };
 
   const handleFormSubmit = (e: React.FormEvent) => {
@@ -112,27 +106,7 @@ const HomeManager: React.FC = () => {
 
       <div className="main-container">
         {/* Nav */}
-
-        <div className="nav-wrapper">
-          <div className="welcome-wrapper">
-            <span>
-              Welcome,&nbsp;
-              <strong>{currentUser?.username}</strong>
-            </span>
-            <div className="user-img-container" onClick={toggleDropdown}>
-              <img
-                className="user-img"
-                src={currentUser?.photoURL ?? userImage}
-                alt="User"
-              />
-              <NavbarDropdown
-                role={currentUser!.role}
-                isDropdownOpen={isDropdownOpen}
-              />
-            </div>
-          </div>
-          <hr className="nav-hr" />
-        </div>
+        <Navbar />
 
         <div className="buttons">
           <button id="addClassBtn" onClick={handleAddClassClick}>
