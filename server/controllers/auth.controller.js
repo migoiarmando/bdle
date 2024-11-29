@@ -1,6 +1,7 @@
 import bcrypt from "bcryptjs";
 import User from "../models/user.model.js";
 import generateToken from "../helper/generateToken.js";
+import get from "lodash/get.js";
 
 export const googleLogin = async (req, res, next) => {
   try {
@@ -138,5 +139,28 @@ export const logout = async (req, res, next) => {
   } catch (error) {
     console.log(error);
     res.status(500).json({ message: "Logout error occured." });
+  }
+};
+
+export const updateProfile = async (req, res, next) => {
+  try {
+    const userId = get(req, "user._id");
+    const { username, photoURL } = req.body;
+
+    const updatedUser = await User.findByIdAndUpdate(userId, {
+      username,
+      photoURL,
+    });
+    if (!updatedUser)
+      return res
+        .status(400)
+        .json({ message: "Updating profile error occured." });
+
+    const user = await User.findById(userId);
+
+    res.status(200).json({ message: "Successfully updated profile.", user });
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({ message: "Updating profile error occured." });
   }
 };

@@ -2,10 +2,13 @@ import React, { ChangeEvent, useCallback, useEffect, useState } from "react";
 import StudentSidebar from "../components/StudentSidebar";
 import Navbar from "../components/Navbar";
 import "../styles/Settings.css";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { selectCurrentUser } from "../redux/user/user.selector";
 import { USER_ROLES } from "../constants/UserRoles";
 import Sidebar from "../components/Sidebar";
+import axiosClient from "../utils/axios.utils";
+import { toastError, toastSuccess } from "../utils/toastEmitter";
+import { setCurrentUser } from "../redux/user/user.action";
 
 const INITIAL_FORMDATA = {
   _id: "",
@@ -13,6 +16,7 @@ const INITIAL_FORMDATA = {
   photoURL: "",
 };
 const Settings: React.FC = () => {
+  const dispatch = useDispatch();
   const currentUser = useSelector(selectCurrentUser);
   const [formData, setFormData] = useState(INITIAL_FORMDATA);
   useEffect(() => {
@@ -27,7 +31,8 @@ const Settings: React.FC = () => {
   const handleChange = useCallback(
     (e: ChangeEvent<HTMLInputElement>) => {
       const { name, value, files } = e.target;
-      if (files && files[0]) {
+      if (files) {
+        const file = files[0];
         const reader = new FileReader();
         reader.onload = () => {
           setFormData({
@@ -35,7 +40,7 @@ const Settings: React.FC = () => {
             [name]: reader.result,
           });
         };
-        reader.readAsDataURL(files[0]);
+        reader.readAsDataURL(file);
         return;
       }
 
@@ -55,7 +60,15 @@ const Settings: React.FC = () => {
   };
 
   const handleSubmit = () => {
-    console.log(formData);
+    axiosClient
+      .put("/auth/profile", formData)
+      .then(({ data }) => {
+        toastSuccess(data.message);
+        dispatch(setCurrentUser(data.user));
+      })
+      .catch(({ response: { data } }) => {
+        toastError(data.message);
+      });
   };
 
   return (

@@ -47,7 +47,7 @@ const Navbar = () => {
         <div className="user-img-container" onClick={toggleDropdown}>
           <img
             className="user-img"
-            src={currentUser?.photoURL ?? userImage}
+            src={currentUser?.photoURL ? currentUser?.photoURL : userImage}
             alt="User"
           />
           {isDropdownOpen && (
