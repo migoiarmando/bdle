@@ -32,7 +32,7 @@ const About: React.FC = () => {
          attendance tracking. This system leverages digital technology to enhance classroom management by providing
           an efficient, accurate, and user-friendly platform for monitoring student attendance. 
           With features such as real-time attendance recording, detailed analytics, and automated reporting,
-          it empowers educators to focus more on teaching and less on administrative tasks. 
+          it empowers educators to focus more on teaching and less on administrative task. 
          
         </p>
       </div>
