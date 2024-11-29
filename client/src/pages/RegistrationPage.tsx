@@ -9,7 +9,7 @@ import { setCurrentUser } from "../redux/user/user.action";
 import { SetStateAction, useState } from "react";
 // import { USER_ROLES } from "../constants/UserRoles";
 
-const RegistrationPage: React.FC  = () => {
+const RegistrationPage: React.FC = () => {
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
   const [selectedValue, setSelectedValue] = useState("Select your role");
@@ -19,7 +19,7 @@ const RegistrationPage: React.FC  = () => {
     setSelectedValue(value);
     setShowOptions(false);
   };
-  
+
   const handleRegister = () => {
     const fullName = (document.getElementById("fullName") as HTMLInputElement)
       .value;
@@ -75,38 +75,42 @@ const RegistrationPage: React.FC  = () => {
             <label htmlFor="role" className="label">
               Role
             </label>
-            
+
             <div className="custom-dropdown">
-                <button
-                    className="dropdown-btn"
-                    onClick={() => setShowOptions(!showOptions)}
+              <button
+                className="dropdown-btn"
+                onClick={() => setShowOptions(!showOptions)}
+              >
+                {selectedValue}
+              </button>
+              <ul className={`dropdown-options ${showOptions ? "show" : ""}`}>
+                <li
+                  className="dropdown-option"
+                  onClick={() => handleOptionClick("Student")}
                 >
-                    {selectedValue}
-                </button>
-                <ul className={`dropdown-options ${showOptions ? "show" : ""}`}>
-                    <li
-                    className="dropdown-option"
-                    onClick={() => handleOptionClick("Student")}
-                    >
-                    Student
-                    </li>
-                    <li
-                    className="dropdown-option"
-                    onClick={() => handleOptionClick("Teacher")}
-                    >
-                    Teacher
-                    </li>
-                </ul>
-                <input type="hidden" id="role" value={selectedValue} />
+                  Student
+                </li>
+                <li
+                  className="dropdown-option"
+                  onClick={() => handleOptionClick("Teacher")}
+                >
+                  Teacher
+                </li>
+              </ul>
+              <input type="hidden" id="role" value={selectedValue} />
             </div>
           </div>
 
-          <button onClick={handleRegister} className="register-btn" type="button">
+          <button
+            onClick={handleRegister}
+            className="register-btn"
+            type="button"
+          >
             Register
           </button>
 
-          <p onClick={() => navigate("/login")}>
-            Already have an account? <a href="#">Log In</a>
+          <p>
+            Already have an account? <a href="/">Log In</a>
           </p>
         </div>
         <Footer></Footer>
