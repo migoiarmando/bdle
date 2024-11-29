@@ -4,11 +4,9 @@ import BDLELogo from "../assets/bdle-logo-full.png";
 import AdnuLogo from "../assets/adnu.svg";
 import StudentSidebar from "../components/StudentSidebar";
 import MigoiImg from "../assets/dev-photos/migoi.jpg";
-
-// change monalang sa photo nila
 import GabImg from "../assets/dev-photos/migoi.jpg";
 import KarlImg from "../assets/dev-photos/migoi.jpg";
-import PeterImg from "../assets/dev-photos/migoi.jpg";
+import PeterImg from "../assets/dev-photos/peter.jpg";
 import { useSelector } from "react-redux";
 import { selectCurrentUser } from "../redux/user/user.selector";
 import Navbar from "../components/Navbar";
