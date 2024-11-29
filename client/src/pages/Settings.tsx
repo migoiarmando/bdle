@@ -9,6 +9,7 @@ import Sidebar from "../components/Sidebar";
 import axiosClient from "../utils/axios.utils";
 import { toastError, toastSuccess } from "../utils/toastEmitter";
 import { setCurrentUser } from "../redux/user/user.action";
+import { validateImageFile } from "../utils/image-validator";
 
 const INITIAL_FORMDATA = {
   _id: "",
@@ -33,6 +34,11 @@ const Settings: React.FC = () => {
       const { name, value, files } = e.target;
       if (files) {
         const file = files[0];
+        const { isValid, message } = validateImageFile(file);
+        if (!isValid) {
+          toastError(message);
+          return;
+        }
         const reader = new FileReader();
         reader.onload = () => {
           setFormData({
@@ -52,12 +58,18 @@ const Settings: React.FC = () => {
     [formData]
   );
 
-  const handleRemoveImage = () => {
+  const handleRemoveImage = useCallback(() => {
+    const fileInput = document.getElementById(
+      "profileUpload"
+    ) as HTMLInputElement;
+    fileInput.value = "";
+    fileInput.dispatchEvent(new Event("change"));
+
     setFormData({
       ...formData,
       photoURL: "",
     });
-  };
+  }, [formData]);
 
   const handleSubmit = () => {
     axiosClient
@@ -84,7 +96,6 @@ const Settings: React.FC = () => {
         <Navbar />
 
         <div className="settings-container">
-          <span>Settings</span>
           <h1>Profile Settings</h1>
 
           {/* Username Section */}
