@@ -16,7 +16,7 @@ const Sidebar: React.FC = () => {
           <a href="/manager-home">Home</a>
           <a href="/calendar-manager">Calendar</a>
           <a href="/settings-manager">Settings</a>
-          <a href="/about-us">About</a>
+          <a href="/about-us-manager">About</a>
           <a onClick={handleLogout}>Log out</a>
         </ul>
       </div>

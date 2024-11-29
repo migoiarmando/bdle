@@ -185,7 +185,7 @@ createRoot(document.getElementById("root")!).render(
             }
           />
           <Route
-            path="/about-us"
+            path="/about-us-manager"
             element={
               <TeacherRoute>
                 <AboutBDLE />
