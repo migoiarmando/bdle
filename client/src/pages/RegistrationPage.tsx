@@ -1,44 +1,50 @@
 import "../styles/Register.css";
 import adnulogo from "../assets/adnu.svg";
-import { useNavigate } from "react-router-dom";
 import Footer from "../components/Footer";
 import { useAppDispatch } from "../redux/store.types";
-import { toastError, toastSuccess } from "../utils/toastEmitter";
+import { toastError } from "../utils/toastEmitter";
 import axiosClient from "../utils/axios.utils";
 import { setCurrentUser } from "../redux/user/user.action";
-import { SetStateAction, useState } from "react";
+import { ChangeEvent, useCallback, useState } from "react";
 // import { USER_ROLES } from "../constants/UserRoles";
 
+const INITIAL_DATA = {
+  fullName: "",
+  email: "",
+  password: "",
+  cpassword: "",
+  role: "Select your role",
+};
 const RegistrationPage: React.FC = () => {
-  const navigate = useNavigate();
   const dispatch = useAppDispatch();
-  const [selectedValue, setSelectedValue] = useState("Select your role");
   const [showOptions, setShowOptions] = useState(false);
 
-  const handleOptionClick = (value: SetStateAction<string>) => {
-    setSelectedValue(value);
+  const [formData, setFormData] = useState(INITIAL_DATA);
+
+  const handleChange = useCallback(
+    (e: ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
+      const { name, value } = e.target;
+      setFormData({
+        ...formData,
+        [name]: value,
+      });
+    },
+    [formData]
+  );
+
+  const handleOptionClick = (value: string) => {
+    setFormData({
+      ...formData,
+      role: value,
+    });
     setShowOptions(false);
   };
 
   const handleRegister = () => {
-    const fullName = (document.getElementById("fullName") as HTMLInputElement)
-      .value;
-    const email = (document.getElementById("email") as HTMLInputElement).value;
-    const password = (document.getElementById("password") as HTMLInputElement)
-      .value;
-    const role = (document.getElementById("role") as HTMLSelectElement).value;
-
-    if (!fullName || !email || !password || !role) {
-      toastError("All fields are required.");
-      return;
-    }
-
     axiosClient
-      .post("/auth/register", { fullName, email, password, role })
+      .post("/auth/register", formData)
       .then(({ data }) => {
-        toastSuccess("Registration successful!");
         dispatch(setCurrentUser(data));
-        navigate(`/dashboard/${role}`);
       })
       .catch(({ response: { data } }) => {
         toastError(data.message);
@@ -60,28 +66,65 @@ const RegistrationPage: React.FC = () => {
             <label htmlFor="fullName" className="label">
               Full Name
             </label>
-            <input id="fullName" type="text" placeholder="Your Full Name" />
+            <input
+              id="fullName"
+              name="fullName"
+              type="text"
+              placeholder="Your Full Name"
+              value={formData.fullName}
+              onChange={handleChange}
+              required
+            />
 
             <label htmlFor="email" className="label">
               Email
             </label>
-            <input id="email" type="email" placeholder="xxxxxx@gmail.com" />
+            <input
+              id="email"
+              name="email"
+              type="email"
+              placeholder="xxxxxx@gmail.com"
+              value={formData.email}
+              onChange={handleChange}
+              required
+            />
 
             <label htmlFor="password" className="label">
               Password
             </label>
-            <input id="password" type="password" placeholder="********" />
+            <input
+              id="password"
+              name="password"
+              type="password"
+              placeholder="********"
+              value={formData.password}
+              onChange={handleChange}
+              required
+            />
+
+            <label htmlFor="password" className="label">
+              Confirm Password
+            </label>
+            <input
+              id="cpassword"
+              name="cpassword"
+              type="password"
+              placeholder="********"
+              value={formData.cpassword}
+              onChange={handleChange}
+              required
+            />
 
             <label htmlFor="role" className="label">
               Role
             </label>
-
             <div className="custom-dropdown">
               <button
+                id="role"
                 className="dropdown-btn"
                 onClick={() => setShowOptions(!showOptions)}
               >
-                {selectedValue}
+                {formData.role}
               </button>
               <ul className={`dropdown-options ${showOptions ? "show" : ""}`}>
                 <li
@@ -97,7 +140,6 @@ const RegistrationPage: React.FC = () => {
                   Teacher
                 </li>
               </ul>
-              <input type="hidden" id="role" value={selectedValue} />
             </div>
           </div>
 
