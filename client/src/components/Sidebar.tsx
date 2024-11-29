@@ -1,11 +1,9 @@
 import React from "react";
 import logo from "../assets/adnu.svg";
 import "./styles/sidebar.css";
-import { useNavigate } from "react-router-dom";
 import useLogout from "../hooks/useLogout";
 
 const Sidebar: React.FC = () => {
-  const navigate = useNavigate();
   const { handleLogout } = useLogout();
 
   return (
@@ -15,10 +13,10 @@ const Sidebar: React.FC = () => {
           <img className="nav-logo" src={logo} alt="Logo" />
         </div>
         <ul className="nav-items">
-          <a onClick={() => navigate("/manager-home")}>Home</a>
-          <a onClick={() => navigate("/calendar-manager")}>Calendar</a>
-          <a onClick={() => navigate("/settings-manager")}>Settings</a>
-          <a onClick={() => navigate("/about-us")}>About</a>
+          <a href="/manager-home">Home</a>
+          <a href="/calendar-manager">Calendar</a>
+          <a href="/settings-manager">Settings</a>
+          <a href="/about-us">About</a>
           <a onClick={handleLogout}>Log out</a>
         </ul>
       </div>
