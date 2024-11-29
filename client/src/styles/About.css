@@ -48,7 +48,7 @@
   .mission-section p,
   .vision-section p {
     font-size: 1rem;
-    color: #555;
+    color: #000000;
     line-height: 1.5;
   }
   
@@ -83,6 +83,6 @@
   
   .team-member p {
     font-size: 0.9rem;
-    color: #777;
+    color: #0a0a0a;
   }
   
