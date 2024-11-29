@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { ChangeEvent, useCallback, useEffect, useState } from "react";
 import StudentSidebar from "../components/StudentSidebar";
 import Navbar from "../components/Navbar";
 import "../styles/Settings.css";
@@ -7,22 +7,55 @@ import { selectCurrentUser } from "../redux/user/user.selector";
 import { USER_ROLES } from "../constants/UserRoles";
 import Sidebar from "../components/Sidebar";
 
+const INITIAL_FORMDATA = {
+  _id: "",
+  username: "",
+  photoURL: "",
+};
 const Settings: React.FC = () => {
   const currentUser = useSelector(selectCurrentUser);
-  const [profileImage, setProfileImage] = useState<string | null>(null);
+  const [formData, setFormData] = useState(INITIAL_FORMDATA);
+  useEffect(() => {
+    if (!currentUser) return;
+    setFormData({
+      _id: currentUser?._id,
+      username: currentUser?.username,
+      photoURL: currentUser?.photoURL ?? "",
+    });
+  }, [currentUser]);
 
-  const handleImageUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
-    if (event.target.files && event.target.files[0]) {
-      const reader = new FileReader();
-      reader.onload = (e) => {
-        if (e.target?.result) setProfileImage(e.target.result.toString());
-      };
-      reader.readAsDataURL(event.target.files[0]);
-    }
-  };
+  const handleChange = useCallback(
+    (e: ChangeEvent<HTMLInputElement>) => {
+      const { name, value, files } = e.target;
+      if (files && files[0]) {
+        const reader = new FileReader();
+        reader.onload = () => {
+          setFormData({
+            ...formData,
+            [name]: reader.result,
+          });
+        };
+        reader.readAsDataURL(files[0]);
+        return;
+      }
+
+      setFormData({
+        ...formData,
+        [name]: value,
+      });
+    },
+    [formData]
+  );
 
   const handleRemoveImage = () => {
-    setProfileImage(null);
+    setFormData({
+      ...formData,
+      photoURL: "",
+    });
+  };
+
+  const handleSubmit = () => {
+    console.log(formData);
   };
 
   return (
@@ -48,11 +81,15 @@ const Settings: React.FC = () => {
             <div className="input-group">
               <input
                 type="text"
-                className="setting-text-input"
                 placeholder="Enter your username"
+                style={{ color: "inherit" }}
+                value={formData.username}
+                onChange={handleChange}
               />
             </div>
-            <button className="submit-btn">Submit</button>
+            <button className="submit-btn" onClick={handleSubmit}>
+              Submit
+            </button>
           </div>
 
           {/* Profile Picture Section */}
@@ -61,9 +98,9 @@ const Settings: React.FC = () => {
             <p>Your photo will be displayed in your profile.</p>
             <div className="profile-picture-group">
               <div className="profile-picture-preview">
-                {profileImage ? (
+                {formData.photoURL ? (
                   <img
-                    src={profileImage}
+                    src={formData.photoURL}
                     alt="Profile"
                     className="profile-picture"
                   />
@@ -87,7 +124,8 @@ const Settings: React.FC = () => {
                 id="profileUpload"
                 type="file"
                 accept="image/*"
-                onChange={handleImageUpload}
+                name="photoURL"
+                onChange={handleChange}
                 hidden
               />
             </div>
