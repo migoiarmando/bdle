@@ -4,8 +4,6 @@ import back from "../../assets/back.svg";
 import presentStudentsIcon from "../../assets/present-students-icon.svg";
 import lateStudentsIcon from "../../assets/late-students-icon.svg";
 import absentStudentsIcon from "../../assets/absent-students-icon.svg";
-
-import ProfessorNavbar from "../../components/ProfessorNavbar";
 import Sidebar from "../../components/Sidebar";
 import { useNavigate, useParams } from "react-router-dom";
 
@@ -18,6 +16,7 @@ import { StudentAttendanceType } from "../../types/student-attendance.types";
 import useAttendanceStatusCounter from "../../hooks/useAttendanceStatusCounter";
 import useRealtimeClock from "../../hooks/useRealtimeClock";
 import StudentAttendanceTable from "../../components/StudentAttendanceTable";
+import Navbar from "../../components/Navbar";
 
 const AttendanceSubject: React.FC = () => {
   const navigate = useNavigate();
@@ -120,7 +119,7 @@ const AttendanceSubject: React.FC = () => {
         <Sidebar />
 
         <div className="main-content">
-          <ProfessorNavbar />
+          <Navbar />
           <div className="top-container">
             <div className="left-container">
               <button

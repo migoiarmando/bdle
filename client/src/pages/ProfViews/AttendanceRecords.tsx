@@ -1,7 +1,7 @@
-import React from 'react';
+import React from "react";
 import "../../styles/AttendanceRecords.css";
-import Sidebar from '../../components/Sidebar';
-import ProfessorNavbar from '../../components/ProfessorNavbar';
+import Sidebar from "../../components/Sidebar";
+import Navbar from "../../components/Navbar";
 
 const AttendanceRecords: React.FC = () => {
   return (
@@ -9,7 +9,7 @@ const AttendanceRecords: React.FC = () => {
       <Sidebar />
 
       <div className="main-content">
-        <ProfessorNavbar />
+        <Navbar />
 
         <div className="top-container">
           <div className="top-left-container">
@@ -19,7 +19,7 @@ const AttendanceRecords: React.FC = () => {
             </div>
           </div>
           <div className="top-right-container">
-           <div className="class-cards">
+            <div className="class-cards">
               <div className="class-card-Subjects">ITMC 113</div>
               <div className="class-card-Times">MW 1:30PM - 3:00PM</div>
               <div className="class-card-Teachers">Kevin G. Vega</div>
@@ -64,6 +64,6 @@ const AttendanceRecords: React.FC = () => {
       </div>
     </div>
   );
-}
+};
 
 export default AttendanceRecords;
