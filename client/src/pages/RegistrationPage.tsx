@@ -9,7 +9,7 @@ import { ChangeEvent, useCallback, useState } from "react";
 // import { USER_ROLES } from "../constants/UserRoles";
 
 const INITIAL_DATA = {
-  fullName: "",
+  username: "",
   email: "",
   password: "",
   cpassword: "",
@@ -63,15 +63,15 @@ const RegistrationPage: React.FC = () => {
           </div>
 
           <div className="input">
-            <label htmlFor="fullName" className="label">
+            <label htmlFor="username" className="label">
               Full Name
             </label>
             <input
-              id="fullName"
-              name="fullName"
+              id="username"
+              name="username"
               type="text"
               placeholder="Your Full Name"
-              value={formData.fullName}
+              value={formData.username}
               onChange={handleChange}
               required
             />
