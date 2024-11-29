@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import "../../styles/Calendar.css";
 
 import Sidebar from "../../components/Sidebar";
-import ProfessorNavbar from "../../components/ProfessorNavbar";
+import Navbar from "../../components/Navbar";
 
 import DownLine from "../../assets/down-line.svg";
 import { ClassCardType } from "../../types/class.type";
@@ -153,7 +153,7 @@ const CalendarStudent = () => {
       <Sidebar />
 
       <div className="main-container">
-        <ProfessorNavbar />
+        <Navbar />
 
         <div className="main-calendar">
           <div className="date-container">

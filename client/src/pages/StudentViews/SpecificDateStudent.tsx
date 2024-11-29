@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import "../../styles/SpecificDate.css";
 import Sidebar from "../../components/Sidebar";
-import ProfessorNavbar from "../../components/ProfessorNavbar";
+import Navbar from "../../components/Navbar";
 import { StudentAttendanceType } from "../../types/student-attendance.types";
 import { AttendanceType } from "../../types/attendance.type";
 import axiosClient from "../../utils/axios.utils";
@@ -49,7 +49,7 @@ const SpecificDateStudent: React.FC = () => {
     <div className="nav-container">
       <Sidebar />
       <div className="main-container">
-        <ProfessorNavbar />
+        <Navbar />
 
         <div className="container-subject">
           <DateCard

@@ -5,7 +5,7 @@ import presentStudentsIcon from "../../assets/present-students-icon.svg";
 import lateStudentsIcon from "../../assets/late-students-icon.svg";
 import absentStudentsIcon from "../../assets/absent-students-icon.svg";
 
-import StudentNavbar from "../../components/StudentNavbar";
+import Navbar from "../../components/Navbar";
 import StudentSidebar from "../../components/StudentSidebar";
 
 import { useNavigate, useParams } from "react-router-dom";
@@ -145,7 +145,7 @@ const StudentClassOverview: React.FC = () => {
         <StudentSidebar />
 
         <div className="main-content">
-          <StudentNavbar />
+          <Navbar />
           <div className="top-container">
             <div className="left-container">
               <button

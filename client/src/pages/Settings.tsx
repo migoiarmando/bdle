@@ -1,7 +1,7 @@
-import React, { useState } from 'react';
-import StudentSidebar from '../components/StudentSidebar';
-import StudentNavbar from '../components/StudentNavbar';
-import '../styles/Settings.css';
+import React, { useState } from "react";
+import StudentSidebar from "../components/StudentSidebar";
+import Navbar from "../components/Navbar";
+import "../styles/Settings.css";
 
 const Settings: React.FC = () => {
   const [profileImage, setProfileImage] = useState<string | null>(null);
@@ -26,7 +26,7 @@ const Settings: React.FC = () => {
 
       <div className="main-container">
         {/* Navbar */}
-        <StudentNavbar />
+        <Navbar />
 
         <div className="settings-container">
           <span>Settings</span>
@@ -37,11 +37,13 @@ const Settings: React.FC = () => {
             <h2>Full Name</h2>
             <p>Your name will be displayed in your profile.</p>
             <div className="input-group">
-              <input type="text" className="setting-text-input" placeholder="Enter your username" />
-             
+              <input
+                type="text"
+                className="setting-text-input"
+                placeholder="Enter your username"
+              />
             </div>
             <button className="submit-btn">Submit</button>
-
           </div>
 
           {/* Profile Picture Section */}
@@ -51,7 +53,11 @@ const Settings: React.FC = () => {
             <div className="profile-picture-group">
               <div className="profile-picture-preview">
                 {profileImage ? (
-                  <img src={profileImage} alt="Profile" className="profile-picture" />
+                  <img
+                    src={profileImage}
+                    alt="Profile"
+                    className="profile-picture"
+                  />
                 ) : (
                   <div className="placeholder-circle">No Image</div>
                 )}
