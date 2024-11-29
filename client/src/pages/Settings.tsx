@@ -2,8 +2,13 @@ import React, { useState } from "react";
 import StudentSidebar from "../components/StudentSidebar";
 import Navbar from "../components/Navbar";
 import "../styles/Settings.css";
+import { useSelector } from "react-redux";
+import { selectCurrentUser } from "../redux/user/user.selector";
+import { USER_ROLES } from "../constants/UserRoles";
+import Sidebar from "../components/Sidebar";
 
 const Settings: React.FC = () => {
+  const currentUser = useSelector(selectCurrentUser);
   const [profileImage, setProfileImage] = useState<string | null>(null);
 
   const handleImageUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -22,7 +27,11 @@ const Settings: React.FC = () => {
 
   return (
     <div className="nav-container">
-      <StudentSidebar />
+      {currentUser?.role === USER_ROLES.Student ? (
+        <StudentSidebar />
+      ) : (
+        <Sidebar />
+      )}
 
       <div className="main-container">
         {/* Navbar */}

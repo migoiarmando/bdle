@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import "../../styles/Calendar.css";
 
-import Sidebar from "../../components/Sidebar";
 import Navbar from "../../components/Navbar";
 
 import DownLine from "../../assets/down-line.svg";
@@ -9,6 +8,7 @@ import { ClassCardType } from "../../types/class.type";
 import axiosClient from "../../utils/axios.utils";
 import { toastError } from "../../utils/toastEmitter";
 import { AttendanceType } from "../../types/attendance.type";
+import StudentSidebar from "../../components/StudentSidebar";
 
 const CalendarStudent = () => {
   const [selectedClass, setSelectedClass] = useState("");
@@ -150,7 +150,7 @@ const CalendarStudent = () => {
 
   return (
     <div className="nav-container">
-      <Sidebar />
+      <StudentSidebar />
 
       <div className="main-container">
         <Navbar />
