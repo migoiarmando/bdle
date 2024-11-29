@@ -17,7 +17,7 @@ const Sidebar: React.FC = () => {
         <ul className="nav-items">
           <a onClick={() => navigate("/manager-home")}>Home</a>
           <a onClick={() => navigate("/calendar-manager")}>Calendar</a>
-          <a onClick={() => navigate("/404")}>Settings</a>
+          <a onClick={() => navigate("/settings-manager")}>Settings</a>
           <a onClick={() => navigate("/about-us")}>About</a>
           <a onClick={handleLogout}>Log out</a>
         </ul>
