@@ -41,6 +41,12 @@ const RegistrationPage: React.FC = () => {
   };
 
   const handleRegister = () => {
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(formData.email)) {
+      toastError("Invalid email format");
+      return;
+    }
+
     axiosClient
       .post("/auth/register", formData)
       .then(({ data }) => {

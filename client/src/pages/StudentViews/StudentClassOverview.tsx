@@ -110,6 +110,12 @@ const StudentClassOverview: React.FC = () => {
     setAnswerOfTheDay("");
   };
   const handleSubmit = async () => {
+    // Check if any required field is empty
+    if (!attendanceCode || !studentIGN || !answerOfTheDay) {
+      toastError("Please fill in all the required fields.");
+      return;
+    }
+
     setIsSubmitting(true);
     const studentAttendance = {
       attendanceCode,

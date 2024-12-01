@@ -77,6 +77,11 @@ const AttendanceSubject: React.FC = () => {
   const [attendanceCode, setAttendanceCode] = useState("");
   const [questionOfTheDay, setQuestionOfTheDay] = useState("");
   const handleSubmit = () => {
+    if (!attendanceCode || !questionOfTheDay) {
+      toastError("Please fill in all fields.");
+      return;
+    }
+
     const newAttendance = { attendanceCode, questionOfTheDay };
     axiosClient
       .post(`/attendance/${classCard?._id}`, newAttendance)
