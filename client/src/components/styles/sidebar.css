@@ -1,14 +1,14 @@
 .sidebar {
-    background-color: #091241;
-    height: 100vh;
-    width: 200px;
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-start;
-    align-items: center;
-    margin: 0 auto;
+  background-color: #091241;
+  height: 100vh;
+  width: 200px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  margin: 0 auto;
 }
-.sidebar-content{
+.sidebar-content {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -17,42 +17,41 @@
 }
 
 .nav-logo {
-    width: 100px;
-    margin-top: 2rem;
+  width: 100px;
+  margin-top: 2rem;
 }
 
 .nav-items {
-    margin-top: 3rem;
+  margin-top: 3rem;
 }
 
 .nav-items a {
-    margin-bottom: 4rem;
-    text-decoration: none;
-    color: aliceblue;
-    font-size: 1.25rem;
-    position: relative;
-    padding-left: 0.75rem;
-    cursor: pointer;
-    transition: color 0.3s ease;
+  margin-bottom: 4rem;
+  text-decoration: none;
+  color: aliceblue;
+  font-size: 1.25rem;
+  position: relative;
+  padding-left: 0.75rem;
+  cursor: pointer;
+  transition: color 0.3s ease;
 }
 
 .nav-items a::before {
-    content: '';
-    position: absolute;
-    left: 0;
-    top: 50%;
-    transform: translateY(-50%);
-    width: 5px;
-    height: 0;
-    background-color: #ffffff; /* The color of the hover highlight */
-    transition: height 0.3s ease;
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 5px;
+  height: 0;
+  background-color: #ffffff; /* The color of the hover highlight */
+  transition: height 0.3s ease;
 }
 
 .nav-items a:hover {
-    color: #ffffff; /* Change text color on hover */
+  color: #ffffff; /* Change text color on hover */
 }
 
 .nav-items a:hover::before {
-    height: 100%; /* Animate the height to full on hover */
+  height: 100%; /* Animate the height to full on hover */
 }
-
