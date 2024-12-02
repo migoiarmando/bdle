@@ -42,8 +42,15 @@ const RegistrationPage: React.FC = () => {
 
   const handleRegister = () => {
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    const passwordRegex = /^(?=.*[!@#$%^&*])[A-Za-z\d!@#$%^&*]{8,}$/;
+
     if (!emailRegex.test(formData.email)) {
       toastError("Invalid email format");
+      return;
+    }
+
+    if (!passwordRegex.test(formData.password)) {
+      toastError("Password must be at least 8 characters long and include at least one symbol.");
       return;
     }
 
