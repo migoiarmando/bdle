@@ -1,6 +1,6 @@
 export const validateImageFile = (file: File) => {
   const allowedTypes = ["image/jpeg", "image/png", "image/gif"];
-  const maxSize = 25 * 1024; // 25KB in bytes
+  const maxSize = 60 * 1024; // 60KB in bytes
 
   if (!file) {
     return { isValid: false, message: "No file selected" };
