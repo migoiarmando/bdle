@@ -71,7 +71,7 @@ export const addStudentClass = async (req, res, next) => {
     });
   } catch (error) {
     console.log(error);
-    res.status(500).json({ message: "Student class error occured." });
+    res.status(500).json({ message: "Student class error occurred." });
   }
 };
 
@@ -88,6 +88,6 @@ export const fetchStudentClass = async (req, res, next) => {
     res.status(200).json(studentClass);
   } catch (error) {
     console.log(error);
-    res.status(500).json({ message: "Fetch Student class error occured." });
+    res.status(500).json({ message: "Fetch Student class error occurred." });
   }
 };
