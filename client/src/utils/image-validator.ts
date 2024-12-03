@@ -16,7 +16,7 @@ export const validateImageFile = (file: File) => {
   if (file.size > maxSize) {
     return {
       isValid: false,
-      message: `File size should not exceed 69KB (current size: ${(
+      message: `File size should not exceed 25KB (current size: ${(
         file.size / 1024
       ).toFixed(2)}KB)`,
     };
