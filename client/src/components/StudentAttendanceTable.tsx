@@ -21,7 +21,7 @@ const StudentAttendanceTable: React.FC<StudentAttendanceTableProps> = ({
         </tr>
       </thead>
       <tbody>
-        {/* BACKEND Add dynamic content here - studentsd */}
+        {/* BACKEND Add dynamic content here - students */}
         {studentAttendances.map((studentAttendance) => (
           <tr key={studentAttendance._id}>
             <td className="student-name-wrapper">

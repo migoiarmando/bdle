@@ -18,9 +18,9 @@ export const addStudentAttendance = async (req, res, next) => {
     if (!existingClass)
       return res.status(404).json({ message: "Class does not exist." });
 
-    const existingAttendanceCode = await Attendance.findOne({ 
+    const existingAttendanceCode = await Attendance.findOne({
       attendanceCode,
-      classId
+      classId,
     });
     if (!existingAttendanceCode)
       return res

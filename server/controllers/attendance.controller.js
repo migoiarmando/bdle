@@ -14,11 +14,11 @@ export const addAttendance = async (req, res, next) => {
     if (!attendanceCode || !questionOfTheDay)
       return res.status(400).json({ message: "Fill all required fields." });
 
-    const existingAttendanceCode = await Attendance.findOne({ 
+    const existingAttendanceCode = await Attendance.findOne({
       attendanceCode,
-      classId
+      classId,
     });
-    
+
     if (existingAttendanceCode)
       return res
         .status(400)

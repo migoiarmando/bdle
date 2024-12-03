@@ -198,14 +198,14 @@ const StudentClassOverview: React.FC = () => {
                     <span>{presentCount}</span>
                   </div>
                 </div>
-                <div className="absent-wrapper">
+                <div className="late-wrapper">
                   <span className="status-label">Late</span>
                   <div className="numbers">
                     <img src={lateStudentsIcon} alt="" />
                     <span>{lateCount}</span>
                   </div>
                 </div>
-                <div className="late-wrapper">
+                <div className="absent-wrapper">
                   <span className="status-label">Absent</span>
                   <div className="numbers">
                     <img src={absentStudentsIcon} alt="" />
