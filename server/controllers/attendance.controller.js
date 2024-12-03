@@ -14,11 +14,15 @@ export const addAttendance = async (req, res, next) => {
     if (!attendanceCode || !questionOfTheDay)
       return res.status(400).json({ message: "Fill all required fields." });
 
-    const existingAttendanceCode = await Attendance.findOne({ attendanceCode });
+    const existingAttendanceCode = await Attendance.findOne({ 
+      attendanceCode,
+      classId
+    });
+    
     if (existingAttendanceCode)
       return res
         .status(400)
-        .json({ message: "Given attendance code already exist." });
+        .json({ message: "Given attendance code already exists." });
 
     const newAttendance = await Attendance({
       classId,
@@ -74,7 +78,7 @@ export const addAttendance = async (req, res, next) => {
     }, 5400 * 1000); //1.5 hrs in seconds = 5400
   } catch (error) {
     console.log(error);
-    res.status(500).json({ message: "Add attendance error occured." });
+    res.status(500).json({ message: "Add attendance error occurred." });
   }
 };
 

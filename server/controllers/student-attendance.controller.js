@@ -18,7 +18,10 @@ export const addStudentAttendance = async (req, res, next) => {
     if (!existingClass)
       return res.status(404).json({ message: "Class does not exist." });
 
-    const existingAttendanceCode = await Attendance.findOne({ attendanceCode });
+    const existingAttendanceCode = await Attendance.findOne({ 
+      attendanceCode,
+      classId
+    });
     if (!existingAttendanceCode)
       return res
         .status(404)
@@ -27,12 +30,21 @@ export const addStudentAttendance = async (req, res, next) => {
     if (existingAttendanceCode.status === ATTENDANCE_STATUS.INACTIVE)
       return res.status(404).json({ message: "Attendance is not available." });
 
+    const createdAt = existingAttendanceCode.createdAt;
+    const expirationTime = new Date(createdAt);
+    expirationTime.setMinutes(expirationTime.getMinutes() + 90);
+
+    if (new Date() > expirationTime) {
+      return res.status(400).json({ message: "Attendance code has expired." });
+    }
+
     const existingAttendanceOnUser = await StudentAttendance.findOne({
       userId,
       attendanceId: existingAttendanceCode._id,
+      classId,
     });
     if (existingAttendanceOnUser)
-      return res.status(404).json({ message: "You're already in attendance." });
+      return res.status(400).json({ message: "You're already in attendance." });
 
     const status = getStudentAttendanceStatus(
       existingClass.scheduleStart,
@@ -65,7 +77,7 @@ export const addStudentAttendance = async (req, res, next) => {
     });
   } catch (error) {
     console.log(error);
-    res.status(500).json({ message: "Add student attendance error occured." });
+    res.status(500).json({ message: "Add student attendance error occurred." });
   }
 };
 
@@ -82,7 +94,7 @@ export const fetchStudentAttendancesByAttendanceId = async (req, res, next) => {
     console.log(error);
     res
       .status(500)
-      .json({ message: "Fetch student attendances error occured." });
+      .json({ message: "Fetch student attendances error occurred." });
   }
 };
 
@@ -99,7 +111,7 @@ export const fetchStudentAttendanceByAttendanceId = async (req, res, next) => {
     console.log(error);
     res.status(500).json({
       message:
-        "Fetch student attendance by AttendanceId and StudentId error occured.",
+        "Fetch student attendance by AttendanceId and StudentId error occurred.",
     });
   }
 };
@@ -123,7 +135,7 @@ export const fetchStudentAttendancesByClassId = async (req, res, next) => {
     console.log(error);
     res.status(500).json({
       message:
-        "Fetch student attendance by AttendanceId and StudentId error occured.",
+        "Fetch student attendance by AttendanceId and StudentId error occurred.",
     });
   }
 };

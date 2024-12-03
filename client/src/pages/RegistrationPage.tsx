@@ -50,7 +50,9 @@ const RegistrationPage: React.FC = () => {
     }
 
     if (!passwordRegex.test(formData.password)) {
-      toastError("Password must be at least 8 characters long and include at least one symbol.");
+      toastError(
+        "Password must be at least 8 characters long and include at least one symbol."
+      );
       return;
     }
 
