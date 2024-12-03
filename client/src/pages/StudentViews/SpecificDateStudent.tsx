@@ -45,6 +45,13 @@ const SpecificDateStudent: React.FC = () => {
       .finally(() => {});
   }, [currentAttendance]);
 
+  const formatTime = (time: string) => {
+    const [hour, minute] = time.split(':').map(Number);
+    const period = hour >= 12 ? 'PM' : 'AM';
+    const standardHour = hour % 12 || 12; // Convert 0 to 12
+    return `${standardHour}:${minute.toString().padStart(2, '0')} ${period}`;
+  };
+
   return (
     <div className="nav-container">
       <Sidebar />
@@ -60,7 +67,7 @@ const SpecificDateStudent: React.FC = () => {
               subject={currentAttendance?.classId.className ?? ""}
               time={
                 currentAttendance
-                  ? `${currentAttendance.classId.scheduleDay} ${currentAttendance.classId.scheduleStart}-${currentAttendance.classId.scheduleEnd}`
+                  ? `${currentAttendance.classId.scheduleDay} ${formatTime(currentAttendance.classId.scheduleStart)}-${formatTime(currentAttendance.classId.scheduleEnd)}`
                   : "TTH 1:30PM - 3:00PM"
               }
               section={currentAttendance?.classId.section ?? ""}
