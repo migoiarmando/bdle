@@ -92,7 +92,9 @@ export const fetchLatestAttendance = async (req, res, next) => {
     res.status(200).json(latestAttendance);
   } catch (error) {
     console.log(error);
-    res.status(500).json({ message: "Fetch latest attendance error occured." });
+    res
+      .status(500)
+      .json({ message: "Fetch latest attendance error occurred." });
   }
 };
 
@@ -108,7 +110,9 @@ export const fetchAttendancesById = async (req, res, next) => {
     res.status(200).json(attendance);
   } catch (error) {
     console.log(error);
-    res.status(500).json({ message: "Fetch latest attendance error occured." });
+    res
+      .status(500)
+      .json({ message: "Fetch latest attendance error occurred." });
   }
 };
 
@@ -122,6 +126,6 @@ export const fetchAttendancesByClassId = async (req, res, next) => {
     console.log(error);
     res
       .status(500)
-      .json({ message: "Fetch attendances by class id error occured." });
+      .json({ message: "Fetch attendances by class id error occurred." });
   }
 };
