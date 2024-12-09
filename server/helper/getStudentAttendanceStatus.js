@@ -13,9 +13,9 @@ export const getStudentAttendanceStatus = (scheduleStart, studentTimeIn) => {
     timeDiffMinutes += 24 * 60; // Add 24 hours in minutes
   }
 
-  if (timeDiffMinutes > 30) {
+  if (timeDiffMinutes > 90) {
     return STUDENT_ATTENDANCE_STATUS.ABSENT;
-  } else if (timeDiffMinutes > 15) {
+  } else if (timeDiffMinutes > 30) {
     return STUDENT_ATTENDANCE_STATUS.LATE;
   } else {
     return STUDENT_ATTENDANCE_STATUS.PRESENT;
