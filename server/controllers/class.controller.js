@@ -52,7 +52,7 @@ export const addClass = async (req, res, next) => {
       .json({ message: "Class is successfully added.", class: newClass });
   } catch (error) {
     console.log(error);
-    res.status(500).json({ message: "Add class error occured." });
+    res.status(500).json({ message: "Add class error occurred." });
   }
 };
 
@@ -63,7 +63,7 @@ export const fetchClasses = async (req, res, next) => {
     res.status(200).json(classes);
   } catch (error) {
     console.log(error);
-    res.status(500).json({ message: "Fetch classes error occured." });
+    res.status(500).json({ message: "Fetch classes error occurred." });
   }
 };
 
@@ -77,6 +77,6 @@ export const fetchClassById = async (req, res, next) => {
     res.status(200).json(existingClass);
   } catch (error) {
     console.log(error);
-    res.status(500).json({ message: "Fetch classes error occured." });
+    res.status(500).json({ message: "Fetch classes error occurred." });
   }
 };
