@@ -169,7 +169,7 @@ const StudentClassOverview: React.FC = () => {
               </button>
               {/* BACKEND Add dynamic attendance code here */}
               <div className="attendance-code">
-                #{currentStudentAttendance?.attendanceCode ?? ""}
+                Attendance Code: {currentStudentAttendance?.attendanceCode ?? ""}
               </div>
             </div>
             <div className="circle">
