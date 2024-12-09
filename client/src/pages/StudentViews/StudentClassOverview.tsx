@@ -148,8 +148,7 @@ const StudentClassOverview: React.FC = () => {
   return (
     classCard && (
       <div className="nav-container">
-        <StudentSidebar />
-
+          <StudentSidebar />
         <div className="main-content">
           <Navbar />
           <div className="top-container">
@@ -264,29 +263,31 @@ const StudentClassOverview: React.FC = () => {
               </div>
             </div>
           )}
-
+        <div className="table-container">
           <table>
-            <thead>
-              <tr>
-                <th>Names</th>
-                <th>IGN</th>
-                {/* BACKEND Add dynamic question of the day here */}
-                <th>{currentAttendance?.questionOfTheDay}</th>
-              </tr>
-            </thead>
-            <tbody>
-              {studentAttendances.map((studentAttendance) => (
-                <tr key={studentAttendance._id}>
-                  <td className="student-name-wrapper">
-                    <img src={indicator(studentAttendance)} alt="" />
-                    {studentAttendance.userId.username}
-                  </td>
-                  <td>{studentAttendance.studentIGN}</td>
-                  <td>{studentAttendance.answerOfTheDay}</td>
+              <thead>
+                <tr>
+                  <th>Names</th>
+                  <th>IGN</th>
+                  {/* BACKEND Add dynamic question of the day here */}
+                  <th>{currentAttendance?.questionOfTheDay}</th>
                 </tr>
-              ))}
-            </tbody>
-          </table>
+              </thead>
+              <tbody>
+                {studentAttendances.map((studentAttendance) => (
+                  <tr key={studentAttendance._id}>
+                    <td className="student-name-wrapper">
+                      <img src={indicator(studentAttendance)} alt="" />
+                      Confidential
+                    </td>
+                    <td>{studentAttendance.studentIGN}</td>
+                    <td>{studentAttendance.answerOfTheDay}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+        </div>
+          
         </div>
       </div>
     )

@@ -1,9 +1,9 @@
 
 .main-content {
-    margin-left: 125px; /* Ensures content is not overlapped by sidebar */
+    margin-left: 50px;
     padding: 20px;
     width: 100%;
-    height: 100vh;
+    height: 100%;
     background-color: #fff;
 }
 .top-container{
@@ -35,6 +35,7 @@
     border-style: none;
     box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
 }
+
 .back {
     background-color: #091241;
     color: white;
@@ -148,18 +149,24 @@
     text-align: center;
 }
 
+
+.table-container {
+    max-height: 400px; 
+    overflow-y: auto;
+    border: 1px solid #ddd;
+  }
 table {
     width: 99%;
     border-collapse: collapse;
     margin-top: 3rem;
-    table-layout: fixed; /* Ensures equal-width columns */
+    table-layout: fixed; 
 }
 
 th, td {
     padding: 12px 15px;
     border: 1px transparent #ddd;
     border-bottom: 1px solid #ddd;
-    white-space: normal; /* Allows text to wrap */
+    white-space: normal; 
     word-wrap: break-word; 
 }
 

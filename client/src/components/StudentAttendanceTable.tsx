@@ -12,28 +12,31 @@ const StudentAttendanceTable: React.FC<StudentAttendanceTableProps> = ({
   studentAttendances,
 }) => {
   return (
-    <table>
-      <thead>
-        <tr>
-          <th>Names</th>
-          <th>IGN</th>
-          <th>{currentAttendance ? currentAttendance.questionOfTheDay : ""}</th>
-        </tr>
-      </thead>
-      <tbody>
-        {/* BACKEND Add dynamic content here - students */}
-        {studentAttendances.map((studentAttendance) => (
-          <tr key={studentAttendance._id}>
-            <td className="student-name-wrapper">
-              <img src={indicator(studentAttendance)} alt="" />
-              {studentAttendance.studentIGN}
-            </td>
-            {/* <td>{studentAttendance.createdAt}</td> */}
-            <td>{studentAttendance.answerOfTheDay}</td>
-          </tr>
-        ))}
-      </tbody>
-    </table>
+    <div className="table-container">
+      <table>
+          <thead>
+            <tr>
+              <th>Names</th>
+              <th>IGN</th>
+              <th>{currentAttendance ? currentAttendance.questionOfTheDay : ""}</th>
+            </tr>
+          </thead>
+          <tbody>
+            {/* BACKEND Add dynamic content here - students */}
+            {studentAttendances.map((studentAttendance) => (
+              <tr key={studentAttendance._id}>
+                <td className="student-name-wrapper">
+                  <img src={indicator(studentAttendance)} alt="" />
+                  Confidential
+                  </td>
+                <td>{studentAttendance.studentIGN}</td>
+                <td>{studentAttendance.answerOfTheDay}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+    </div>
+    
   );
 };
 
