@@ -274,16 +274,18 @@ const StudentClassOverview: React.FC = () => {
                 </tr>
               </thead>
               <tbody>
-                {studentAttendances.map((studentAttendance) => (
-                  <tr key={studentAttendance._id}>
-                    <td className="student-name-wrapper">
-                      <img src={indicator(studentAttendance)} alt="" />
-                      Confidential
-                    </td>
-                    <td>{studentAttendance.studentIGN}</td>
-                    <td>{studentAttendance.answerOfTheDay}</td>
-                  </tr>
-                ))}
+                {studentAttendances
+                  .filter((attendance) => attendance.status !== "Absent")
+                  .map((studentAttendance) => (
+                    <tr key={studentAttendance._id}>
+                      <td className="student-name-wrapper">
+                        <img src={indicator(studentAttendance)} alt="" />
+                        Confidential
+                      </td>
+                      <td>{studentAttendance.studentIGN}</td>
+                      <td>{studentAttendance.answerOfTheDay}</td>
+                    </tr>
+                  ))}
               </tbody>
             </table>
         </div>

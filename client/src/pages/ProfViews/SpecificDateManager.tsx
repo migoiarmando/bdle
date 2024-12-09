@@ -76,7 +76,10 @@ const SpecificDateManager: React.FC = () => {
         </div>
         <StudentAttendanceTable
           currentAttendance={currentAttendance}
-          studentAttendances={studentAttendances}
+          studentAttendances={studentAttendances.map((studentAttendance) => ({
+            ...studentAttendance,
+            studentName: studentAttendance.userId.username,
+          }))}
         />
       </div>
     </div>
