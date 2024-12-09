@@ -17,8 +17,7 @@ const StudentSidebar: React.FC = () => {
           <a href="/calendar-student">Calendar</a>
           <a href="/settings-student">Settings</a>
           <a href="/about-us">About</a>
-          {/* View Only */}
-          <a href="/archived-classes">Archived Classes</a> 
+          
           <a onClick={handleLogout}>Log out</a>
         </ul>
       </div>
