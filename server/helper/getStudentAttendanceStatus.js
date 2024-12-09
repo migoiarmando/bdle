@@ -1,6 +1,6 @@
 import { STUDENT_ATTENDANCE_STATUS } from "../constants/StudentAttendanceStatus.js";
 
-export const getStudentAttendanceStatus = (scheduleStart, studentTimeIn, attendanceCreatedAt) => {
+export const getStudentAttendanceStatus = (scheduleStart, studentTimeIn) => {
   const [hours1, minutes1] = scheduleStart.split(":").map(Number);
   const [hours2, minutes2] = studentTimeIn.split(":").map(Number);
 
@@ -13,13 +13,9 @@ export const getStudentAttendanceStatus = (scheduleStart, studentTimeIn, attenda
     timeDiffMinutes += 24 * 60; // Add 24 hours in minutes
   }
 
-  const attendanceCreatedTime = new Date(attendanceCreatedAt).getTime();
-  const currentTime = new Date().getTime();
-  const timeSinceCreation = (currentTime - attendanceCreatedTime) / (1000 * 60); // Convert to minutes
-
-  if (timeSinceCreation > 90) {
+  if (timeDiffMinutes > 30) {
     return STUDENT_ATTENDANCE_STATUS.ABSENT;
-  } else if (timeSinceCreation > 30) {
+  } else if (timeDiffMinutes > 15) {
     return STUDENT_ATTENDANCE_STATUS.LATE;
   } else {
     return STUDENT_ATTENDANCE_STATUS.PRESENT;
