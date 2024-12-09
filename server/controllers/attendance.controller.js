@@ -69,8 +69,8 @@ export const addAttendance = async (req, res, next) => {
           classId,
           attendanceId: newAttendance._id,
           attendanceCode: attendanceCode,
-          studentIGN: "NONE",
-          answerOfTheDay: "NONE",
+          studentIGN: "No Attendance",
+          answerOfTheDay: "No Attendance",
           status: STUDENT_ATTENDANCE_STATUS.ABSENT,
         });
         await savedAbsentStudent.save();
