@@ -26,9 +26,9 @@ const StudentAttendanceTable: React.FC<StudentAttendanceTableProps> = ({
           <tr key={studentAttendance._id}>
             <td className="student-name-wrapper">
               <img src={indicator(studentAttendance)} alt="" />
-              {studentAttendance.userId.username}
+              {studentAttendance.studentIGN}
             </td>
-            <td>{studentAttendance.studentIGN}</td>
+            {/* <td>{studentAttendance.createdAt}</td> */}
             <td>{studentAttendance.answerOfTheDay}</td>
           </tr>
         ))}
