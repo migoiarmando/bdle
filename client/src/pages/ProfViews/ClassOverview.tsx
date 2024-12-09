@@ -142,9 +142,9 @@ const AttendanceSubject: React.FC = () => {
               </button>
               {/* Add attendance code here */}
               <div className="attendance-code">
-                Attendance Code: {currentAttendance ? currentAttendance.attendanceCode : ""}
+               <strong> Attendance Code:</strong> {currentAttendance ? currentAttendance.attendanceCode : ""}
               </div>
-              <div className="attendance-code">Class Code: {classCard.classCode}</div>
+              <div className="attendance-code"> <strong>Class Code:</strong> {classCard.classCode}</div>
             </div>
             <div className="circle">
               <div id="date">{date}</div>
