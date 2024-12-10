@@ -275,7 +275,7 @@ const StudentClassOverview: React.FC = () => {
               </thead>
               <tbody>
                 {studentAttendances
-                  .filter((attendance) => attendance.status !== "Absent")
+                  //.filter((attendance) => attendance.status !== "Absent")
                   .map((studentAttendance) => (
                     <tr key={studentAttendance._id}>
                       <td className="student-name-wrapper">
