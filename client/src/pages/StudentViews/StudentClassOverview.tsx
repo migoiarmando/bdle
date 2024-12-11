@@ -280,7 +280,7 @@ const StudentClassOverview: React.FC = () => {
                     <tr key={studentAttendance._id}>
                       <td className="student-name-wrapper">
                         <img src={indicator(studentAttendance)} alt="" />
-                        Confidential
+                        {studentAttendance.userId.username}
                       </td>
                       <td>{studentAttendance.studentIGN}</td>
                       <td>{studentAttendance.answerOfTheDay}</td>
