@@ -1,23 +1,21 @@
 import { STUDENT_ATTENDANCE_STATUS } from "../constants/StudentAttendanceStatus.js";
 
-export const getStudentAttendanceStatus = (scheduleStart, studentTimeIn) => {
-  const [hours1, minutes1] = scheduleStart.split(":").map(Number);
-  const [hours2, minutes2] = studentTimeIn.split(":").map(Number);
+export const getStudentAttendanceStatus = (
+  attendanceCreatedTime,
+  studentTimeIn
+) => {
+  const createdDate = new Date(attendanceCreatedTime);
+  const studentDate = new Date(studentTimeIn);
 
-  const totalMinutes1 = hours1 * 60 + minutes1;
-  const totalMinutes2 = hours2 * 60 + minutes2;
-
-  let timeDiffMinutes = totalMinutes2 - totalMinutes1;
+  const timeDiffMinutes = (studentDate - createdDate) / (1000 * 60); // Convert milliseconds to minutes
 
   if (timeDiffMinutes < 0) {
-    timeDiffMinutes += 24 * 60; // Add 24 hours in minutes
-  }
-
-  if (timeDiffMinutes > 90) {
-    return STUDENT_ATTENDANCE_STATUS.ABSENT;
-  } else if (timeDiffMinutes > 30) {
-    return STUDENT_ATTENDANCE_STATUS.LATE;
+    return STUDENT_ATTENDANCE_STATUS.ABSENT; // If the student time is before the attendance was created
+  } else if (timeDiffMinutes > 90) { // More than 90 minutes late
+    return STUDENT_ATTENDANCE_STATUS.ABSENT; 
+  } else if (timeDiffMinutes > 30) { // Late but within 90 minutes
+    return STUDENT_ATTENDANCE_STATUS.LATE; 
   } else {
-    return STUDENT_ATTENDANCE_STATUS.PRESENT;
+    return STUDENT_ATTENDANCE_STATUS.PRESENT; // Present within 30 minutes
   }
 };

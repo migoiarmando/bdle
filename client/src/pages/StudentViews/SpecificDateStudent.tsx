@@ -76,9 +76,9 @@ const SpecificDateStudent: React.FC = () => {
         </div>
         <StudentAttendanceTable
           currentAttendance={currentAttendance}
-          studentAttendances={studentAttendances.filter(
+          studentAttendances={studentAttendances/*.filter(
             (attendance) => attendance.status !== "Absent"
-          )}
+          )*/}
         />
       </div>
     </div>

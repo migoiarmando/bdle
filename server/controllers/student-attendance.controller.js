@@ -47,7 +47,7 @@ export const addStudentAttendance = async (req, res, next) => {
       return res.status(400).json({ message: "You're already in attendance." });
 
     const status = getStudentAttendanceStatus(
-      existingClass.scheduleStart,
+      existingAttendanceCode.createdAt,
       timeIn
     );
     const newStudentAttendance = await StudentAttendance({

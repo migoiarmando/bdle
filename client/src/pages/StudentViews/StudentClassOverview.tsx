@@ -121,7 +121,8 @@ const StudentClassOverview: React.FC = () => {
       attendanceCode,
       studentIGN,
       answerOfTheDay,
-      timeIn: militaryTime,
+       timeIn: new Date().toISOString(),
+      //timeIn: militaryTime,
     };
     axiosClient
       .post(`/student/attendance/${classId}`, studentAttendance)

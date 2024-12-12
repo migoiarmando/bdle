@@ -75,7 +75,7 @@ export const addAttendance = async (req, res, next) => {
         });
         await savedAbsentStudent.save();
       });
-    }, 5400 * 1000); //1.5 hrs in seconds = 5400
+    }, 5400 * 1000); //90 minutes in seconds = 5400
   } catch (error) {
     console.log(error);
     res.status(500).json({ message: "Add attendance error occurred." });
