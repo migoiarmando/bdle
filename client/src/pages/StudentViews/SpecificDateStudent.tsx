@@ -76,9 +76,12 @@ const SpecificDateStudent: React.FC = () => {
         </div>
         <StudentAttendanceTable
           currentAttendance={currentAttendance}
-          studentAttendances={studentAttendances/*.filter(
-            (attendance) => attendance.status !== "Absent"
-          )*/}
+          studentAttendances={studentAttendances
+            .map((studentAttendance) => ({
+              ...studentAttendance,
+              studentName: studentAttendance.userId.username,
+            }))
+            .sort((a, b) => a.studentName.localeCompare(b.studentName))}
         />
       </div>
     </div>

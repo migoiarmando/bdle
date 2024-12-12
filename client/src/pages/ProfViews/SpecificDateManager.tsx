@@ -76,10 +76,12 @@ const SpecificDateManager: React.FC = () => {
         </div>
         <StudentAttendanceTable
           currentAttendance={currentAttendance}
-          studentAttendances={studentAttendances.map((studentAttendance) => ({
-            ...studentAttendance,
-            studentName: studentAttendance.userId.username,
-          }))}
+          studentAttendances={studentAttendances
+            .map((studentAttendance) => ({
+              ...studentAttendance,
+              studentName: studentAttendance.userId.username,
+            }))
+            .sort((a, b) => a.studentName.localeCompare(b.studentName))}
         />
       </div>
     </div>
