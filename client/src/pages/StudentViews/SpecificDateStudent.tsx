@@ -67,7 +67,7 @@ const SpecificDateStudent: React.FC = () => {
               subject={currentAttendance?.classId.className ?? ""}
               time={
                 currentAttendance
-                  ? `${currentAttendance.classId.scheduleDay} ${formatTime(currentAttendance.classId.scheduleStart)}-${formatTime(currentAttendance.classId.scheduleEnd)}`
+                  ? `${currentAttendance.classId.scheduleDay} ${formatTime(currentAttendance.classId.scheduleStart)} - ${formatTime(currentAttendance.classId.scheduleEnd)}`
                   : "TTH 1:30PM - 3:00PM"
               }
               section={currentAttendance?.classId.section ?? ""}
