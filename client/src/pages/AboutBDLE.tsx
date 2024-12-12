@@ -36,14 +36,14 @@ const About: React.FC = () => {
             <img src={BDLELogo} alt="Logo 2" className="logo-full" />
 
             <p>
-              BDLE is a modern solution tailored for Ateneo de Naga University,
-              designed to streamline and simplify attendance tracking. This
-              system leverages digital technology to enhance classroom
-              management by providing an efficient, accurate, and user-friendly
-              platform for monitoring student attendance. With features such as
-              real-time attendance recording, detailed analytics, and automated
-              reporting, it empowers educators to focus more on teaching and
-              less on administrative tasks.
+              BDLE is an innovative system crafted specifically for Ateneo de
+              Naga University to simplify and optimize attendance management. By
+              harnessing the power of digital technology, it offers a seamless
+              and user-friendly platform for tracking student attendance. With
+              advanced features like real-time attendance recording, detailed
+              analytics, and automated reporting, BDLE empowers educators to
+              dedicate more time to teaching and fostering student growth while
+              minimizing administrative tasks.
             </p>
           </div>
 
