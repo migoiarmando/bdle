@@ -23,7 +23,7 @@ const StudentClassOverview: React.FC = () => {
   const navigate = useNavigate();
 
   /** Date-Time */
-  const { date, time, militaryTime } = useRealtimeClock();
+  const { date, time, /*militaryTime*/ } = useRealtimeClock();
 
   /** Fetch Selected Class */
   const { classId } = useParams();
